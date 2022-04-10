@@ -39,7 +39,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>C:\Users\ser\Desktop\OrxCraft\plugins\LiunxRPG.jar</outputFile>
+                            <outputFile>C:\Users\ser\Desktop\OrxCraft\plugins\LiunxRPG-${project.version}.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
