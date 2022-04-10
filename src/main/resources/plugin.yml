@@ -1,0 +1,10 @@
+name: LiunxRPG
+version: '${project.version}'
+description: 'A rpg plugin'
+main: me.serliunx.liunxrpg.LiunxRPG
+api-version: 1.17
+authors: [ SerLiunx ]
+commands:
+  liunxrpg:
+    aliases: ["lrpg", lr]
+    description: main command for LiunxRPG.

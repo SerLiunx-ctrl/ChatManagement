@@ -1,0 +1,2 @@
+command:
+  no_permission: "&c权限不足! {0}" #{0} 权限.

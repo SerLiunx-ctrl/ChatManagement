@@ -1,0 +1,21 @@
+reload:
+  description: "&a重载插件."
+  syntax: "&e/lr reload <参数>"
+  enable: true
+  childs:
+    all:
+      description: "&a重载插件所有配置."
+      syntax: "&e/lr reload all"
+      enable: true
+    lang:
+      description: "&a重载 lang.yml"
+      syntax: "&e/lr reload lang"
+      enable: true
+    main:
+      description: "&a重载 config.yml"
+      syntax: "&e/lr reload main"
+      enable: true
+help:
+  description: "&a查看帮助."
+  syntax: "&e/lr help <指令>"
+  enable: true
