@@ -31,6 +31,11 @@ public final class Group {
         users = new HashMap<>();
     }
 
+    /**
+     * 保留空参数构造器
+     */
+    public Group(){}
+
     public String getName() {
         return name;
     }

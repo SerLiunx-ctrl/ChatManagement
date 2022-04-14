@@ -46,6 +46,11 @@ public final class Filter {
     }
 
     /**
+     * 保留空参数构造器
+     */
+    public Filter(){}
+
+    /**
      * 获取过滤器的名称
      * @return 名称
      */
