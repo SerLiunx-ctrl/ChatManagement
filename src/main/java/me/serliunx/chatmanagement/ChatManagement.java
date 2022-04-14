@@ -1,14 +1,13 @@
-package me.serliunx.liunxrpg;
+package me.serliunx.chatmanagement;
 
-import me.serliunx.liunxrpg.commands.Commands;
-import me.serliunx.liunxrpg.managers.CommandManager;
-import me.serliunx.liunxrpg.managers.ConfigManager;
+import me.serliunx.chatmanagement.commands.Commands;
+import me.serliunx.chatmanagement.managers.CommandManager;
+import me.serliunx.chatmanagement.managers.ConfigManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class LiunxRPG extends JavaPlugin {
+public final class ChatManagement extends JavaPlugin {
 
-    private static LiunxRPG instance;
-
+    private static ChatManagement instance;
     private ConfigManager configManager;
     private CommandManager commandManager;
     private Commands commands;
@@ -19,15 +18,11 @@ public final class LiunxRPG extends JavaPlugin {
 
         commands = new Commands();
         configManager = new ConfigManager();
-        commandManager = new CommandManager("liunxrpg");
+        commandManager = new CommandManager("chatmanagement");
     }
 
     @Override
     public void onDisable() {
-
-    }
-
-    private void register(){
 
     }
 
@@ -43,7 +38,7 @@ public final class LiunxRPG extends JavaPlugin {
         return commands;
     }
 
-    public static LiunxRPG getInstance(){
+    public static ChatManagement getInstance(){
         return instance;
     }
 }

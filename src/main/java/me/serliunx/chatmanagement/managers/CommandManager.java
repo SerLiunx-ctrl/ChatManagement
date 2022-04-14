@@ -1,10 +1,10 @@
-package me.serliunx.liunxrpg.managers;
+package me.serliunx.chatmanagement.managers;
 
-import me.serliunx.liunxrpg.LiunxRPG;
-import me.serliunx.liunxrpg.commands.Command;
-import me.serliunx.liunxrpg.commands.Commands;
-import me.serliunx.liunxrpg.utils.StringUtils;
-import me.serliunx.liunxrpg.utils.TimeUtils;
+import me.serliunx.chatmanagement.ChatManagement;
+import me.serliunx.chatmanagement.commands.Command;
+import me.serliunx.chatmanagement.commands.Commands;
+import me.serliunx.chatmanagement.utils.StringUtils;
+import me.serliunx.chatmanagement.utils.TimeUtils;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -23,18 +23,18 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     private final FileConfiguration commandConfiguration;
 
     public CommandManager(String command){
-        PluginCommand pluginCommand = LiunxRPG.getInstance().getCommand(command);
+        PluginCommand pluginCommand = ChatManagement.getInstance().getCommand(command);
         if(pluginCommand != null){
             pluginCommand.setExecutor(this);
             pluginCommand.setTabCompleter(this);
         }
 
-        commandConfiguration = LiunxRPG.getInstance().getConfigManager().getByConfigName("command").getConfiguration();
+        commandConfiguration = ChatManagement.getInstance().getConfigManager().getByConfigName("command").getConfiguration();
         registerCommands();
     }
 
     private void registerCommands(){
-        Commands commands = LiunxRPG.getInstance().getCommands();
+        Commands commands = ChatManagement.getInstance().getCommands();
         for (Field field : commands.getClass().getFields()) {
             try {
                 Command command = (Command) field.get(commands);
@@ -97,7 +97,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command cmd, @NotNull String label, @NotNull String[] args) {
         if(args.length == 0){
-            LiunxRPG.getInstance().getCommands().helpCommand.execute(commandSender,new String[]{});
+            ChatManagement.getInstance().getCommands().helpCommand.execute(commandSender,new String[]{});
             return false;
         }
         for(Command command : commands){

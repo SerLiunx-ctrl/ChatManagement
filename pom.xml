@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.serliunx.liunxrpg</groupId>
-    <artifactId>LiunxRPG</artifactId>
+    <groupId>me.serliunx.chatmanagement</groupId>
+    <artifactId>ChatManagement</artifactId>
     <version>1.0.0-dev</version>
     <packaging>jar</packaging>
 
-    <name>LiunxRPG</name>
+    <name>ChatManagement</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -39,7 +39,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>C:\Users\ser\Desktop\OrxCraft\plugins\LiunxRPG-${project.version}.jar</outputFile>
+                            <outputFile>C:\Users\ser\Desktop\OrxCraft\plugins\ChatManagement-${project.version}.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>

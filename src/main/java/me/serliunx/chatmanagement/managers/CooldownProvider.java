@@ -1,4 +1,4 @@
-package me.serliunx.liunxrpg.managers;
+package me.serliunx.chatmanagement.managers;
 
 import java.time.Duration;
 import java.util.HashMap;

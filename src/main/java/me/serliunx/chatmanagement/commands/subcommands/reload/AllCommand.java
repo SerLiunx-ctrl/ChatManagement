@@ -1,7 +1,7 @@
-package me.serliunx.liunxrpg.commands.subcommands.reload;
+package me.serliunx.chatmanagement.commands.subcommands.reload;
 
-import me.serliunx.liunxrpg.LiunxRPG;
-import me.serliunx.liunxrpg.commands.Command;
+import me.serliunx.chatmanagement.ChatManagement;
+import me.serliunx.chatmanagement.commands.Command;
 import org.bukkit.command.CommandSender;
 
 import java.time.Duration;
@@ -17,7 +17,7 @@ public class AllCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String[] arguments) {
-        LiunxRPG.getInstance().getConfigManager().reloadConfigs();
+        ChatManagement.getInstance().getConfigManager().reloadConfigs();
         return true;
     }
 

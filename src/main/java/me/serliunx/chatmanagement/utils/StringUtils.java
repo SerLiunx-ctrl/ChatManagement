@@ -1,4 +1,4 @@
-package me.serliunx.liunxrpg.utils;
+package me.serliunx.chatmanagement.utils;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package me.serliunx.liunxrpg.enums;
+package me.serliunx.chatmanagement.enums;
 
 public enum YamlFile {
 

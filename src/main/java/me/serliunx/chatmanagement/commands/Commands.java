@@ -1,6 +1,6 @@
-package me.serliunx.liunxrpg.commands;
+package me.serliunx.chatmanagement.commands;
 
-import me.serliunx.liunxrpg.commands.subcommands.*;
+import me.serliunx.chatmanagement.commands.subcommands.*;
 
 public class Commands {
     public HelpCommand helpCommand = new HelpCommand();

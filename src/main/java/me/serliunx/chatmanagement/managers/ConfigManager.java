@@ -1,10 +1,10 @@
-package me.serliunx.liunxrpg.managers;
+package me.serliunx.chatmanagement.managers;
 
-import me.serliunx.liunxrpg.configs.Config;
-import me.serliunx.liunxrpg.configs.files.CommandConfig;
-import me.serliunx.liunxrpg.configs.files.LanguageConfig;
-import me.serliunx.liunxrpg.configs.files.MainConfig;
-import me.serliunx.liunxrpg.enums.YamlFile;
+import me.serliunx.chatmanagement.configs.Config;
+import me.serliunx.chatmanagement.configs.files.CommandConfig;
+import me.serliunx.chatmanagement.configs.files.LanguageConfig;
+import me.serliunx.chatmanagement.configs.files.MainConfig;
+import me.serliunx.chatmanagement.enums.YamlFile;
 
 import java.util.HashMap;
 import java.util.Map;

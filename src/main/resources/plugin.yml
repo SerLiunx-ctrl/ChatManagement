@@ -1,10 +1,10 @@
-name: LiunxRPG
+name: ChatManagement
 version: '${project.version}'
-description: 'A rpg plugin'
-main: me.serliunx.liunxrpg.LiunxRPG
+description: 'A ChatManagement plugin.'
+main: me.serliunx.chatmanagement.ChatManagement
 api-version: 1.17
 authors: [ SerLiunx ]
 commands:
-  liunxrpg:
-    aliases: ["lrpg", lr]
-    description: main command for LiunxRPG.
+  chatmanagement:
+    aliases: ["chatm", cm]
+    description: main command for ChatManagement.

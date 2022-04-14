@@ -1,10 +1,10 @@
-package me.serliunx.liunxrpg.commands.subcommands.reload;
+package me.serliunx.chatmanagement.commands.subcommands.reload;
 
-import me.serliunx.liunxrpg.LiunxRPG;
-import me.serliunx.liunxrpg.commands.Command;
-import me.serliunx.liunxrpg.enums.Permission;
-import me.serliunx.liunxrpg.enums.YamlFile;
-import me.serliunx.liunxrpg.utils.StringUtils;
+import me.serliunx.chatmanagement.ChatManagement;
+import me.serliunx.chatmanagement.commands.Command;
+import me.serliunx.chatmanagement.enums.Permission;
+import me.serliunx.chatmanagement.enums.YamlFile;
+import me.serliunx.chatmanagement.utils.StringUtils;
 import org.bukkit.command.CommandSender;
 import java.time.Duration;
 import java.util.Collections;
@@ -19,7 +19,7 @@ public class MainCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String[] arguments) {
-        if(LiunxRPG.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue()).reloadConfig()){
+        if(ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue()).reloadConfig()){
             sender.sendMessage(StringUtils.Color("main config reloaded!"));
             return true;
         }

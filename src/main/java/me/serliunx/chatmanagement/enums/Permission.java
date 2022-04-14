@@ -1,4 +1,4 @@
-package me.serliunx.liunxrpg.enums;
+package me.serliunx.chatmanagement.enums;
 
 public enum Permission {
     COMMAND_ADMIN_RELOAD("liunxrpg.command.admin.reload"),

@@ -1,8 +1,8 @@
-package me.serliunx.liunxrpg.commands.subcommands;
+package me.serliunx.chatmanagement.commands.subcommands;
 
-import me.serliunx.liunxrpg.LiunxRPG;
-import me.serliunx.liunxrpg.commands.Command;
-import me.serliunx.liunxrpg.utils.StringUtils;
+import me.serliunx.chatmanagement.ChatManagement;
+import me.serliunx.chatmanagement.commands.Command;
+import me.serliunx.chatmanagement.utils.StringUtils;
 import org.bukkit.command.CommandSender;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
     public boolean execute(CommandSender sender, String[] arguments) {
         if(arguments.length != 2){
             sender.sendMessage(StringUtils.Color("&a&l========== &e&lLiunxRPG Command &a&l=========="));
-            for(Command c: LiunxRPG.getInstance().getCommandManager().getCommands()){
+            for(Command c: ChatManagement.getInstance().getCommandManager().getCommands()){
                 sender.sendMessage(StringUtils.Color(c.getSyntax() + " &f- " + c.getDescription()));
             }
             sender.sendMessage(StringUtils.Color("&a&l===================================="));
@@ -27,7 +27,7 @@ public class HelpCommand extends Command {
             return true;
         }
 
-        for(Command c:LiunxRPG.getInstance().getCommandManager().getCommands()){
+        for(Command c: ChatManagement.getInstance().getCommandManager().getCommands()){
             if(arguments[1].equals(c.getAliases().get(0))){
                 if(sender.hasPermission(c.getPermission()) || c.getPermission().equals("")){
                     sender.sendMessage(StringUtils.Color(c.getSyntax() + " &f- " + c.getDescription()));
@@ -51,7 +51,7 @@ public class HelpCommand extends Command {
     public List<String> onTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String label, String[] args) {
         if(args.length == 2){
             List<String> subs = new ArrayList<>();
-            for(Command c:LiunxRPG.getInstance().getCommandManager().getCommands()){
+            for(Command c: ChatManagement.getInstance().getCommandManager().getCommands()){
                 if(c instanceof HelpCommand)
                     continue;
 

@@ -1,4 +1,4 @@
-package me.serliunx.liunxrpg.utils;
+package me.serliunx.chatmanagement.utils;
 
 import java.time.Duration;
 

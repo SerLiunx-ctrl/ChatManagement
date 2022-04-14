@@ -1,6 +1,6 @@
-package me.serliunx.liunxrpg.commands;
+package me.serliunx.chatmanagement.commands;
 
-import me.serliunx.liunxrpg.managers.CooldownProvider;
+import me.serliunx.chatmanagement.managers.CooldownProvider;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import java.time.Duration;

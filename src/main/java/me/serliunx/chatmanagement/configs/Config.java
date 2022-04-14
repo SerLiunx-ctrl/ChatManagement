@@ -1,6 +1,6 @@
-package me.serliunx.liunxrpg.configs;
+package me.serliunx.chatmanagement.configs;
 
-import me.serliunx.liunxrpg.LiunxRPG;
+import me.serliunx.chatmanagement.ChatManagement;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
@@ -24,7 +24,7 @@ public abstract class Config {
             configuration = YamlConfiguration.loadConfiguration(file);
             return true;
         }catch(Exception e){
-            LiunxRPG.getInstance().getLogger().warning(e.toString());
+            ChatManagement.getInstance().getLogger().warning(e.toString());
         }
         return false;
     }
@@ -32,7 +32,7 @@ public abstract class Config {
     private void saveDefaultConfig() {
         file = new File(pathName,fileName);
         if(!file.exists())
-            LiunxRPG.getInstance().saveResource(fileName,false);
+            ChatManagement.getInstance().saveResource(fileName,false);
         configuration = YamlConfiguration.loadConfiguration(file);
     }
 

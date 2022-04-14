@@ -1,9 +1,9 @@
-package me.serliunx.liunxrpg.commands.subcommands;
+package me.serliunx.chatmanagement.commands.subcommands;
 
-import me.serliunx.liunxrpg.commands.Command;
-import me.serliunx.liunxrpg.commands.subcommands.reload.*;
-import me.serliunx.liunxrpg.enums.Permission;
-import me.serliunx.liunxrpg.utils.StringUtils;
+import me.serliunx.chatmanagement.commands.Command;
+import me.serliunx.chatmanagement.commands.subcommands.reload.*;
+import me.serliunx.chatmanagement.enums.Permission;
+import me.serliunx.chatmanagement.utils.StringUtils;
 import org.bukkit.command.CommandSender;
 import java.time.Duration;
 import java.util.ArrayList;
