@@ -16,6 +16,7 @@ public final class ChatManagement extends JavaPlugin {
     private FormatManager formatManager;
     private FilterManager filterManager;
     private UserManager userManager;
+    private ControllerManager controllerManager;
 
     @Override
     public void onEnable() {
@@ -28,6 +29,7 @@ public final class ChatManagement extends JavaPlugin {
         formatManager = new FormatManager();
         filterManager = new FilterManager();
         userManager = new UserManager();
+        controllerManager = new ControllerManager();
 
         //注册监听器.
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
@@ -64,6 +66,10 @@ public final class ChatManagement extends JavaPlugin {
 
     public UserManager getUserManager() {
         return userManager;
+    }
+
+    public ControllerManager getControllerManager() {
+        return controllerManager;
     }
 
     public static ChatManagement getInstance(){

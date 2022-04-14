@@ -1,6 +1,7 @@
 package me.serliunx.chatmanagement.database.entities;
 
 import me.serliunx.chatmanagement.enums.ChatType;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -8,7 +9,7 @@ import java.util.*;
 /**
  * 本插件中的用户类.
  */
-public final class User {
+public final class User{
 
     private String prefix;
     private String suffix;
