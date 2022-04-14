@@ -1,0 +1,62 @@
+#组名 !不要删除这个组
+#当出现两个名称相同的小组时，只会加载其中一个，不分优先级，只会按照载入顺序的第一个。
+default:
+  #启用该组所需要的权限
+  permission: ""
+
+  #优先级,数字越小。优先级越小(作用: 当一个玩家同时拥有两个组的权限时，系统会有限选择优先级高的组, 除非玩家自己设置了格式)
+  priority: 1
+
+  #聊天类型: normal - 普通左下角聊天框, actionbar - 物品栏上方的ActionBar, bossbar - boss血条(屏幕上方)
+  #如果你通过指令单独设置了玩家的聊天类型，则这个玩家的聊天类型会覆盖这个.
+  type: "normal"
+
+  #prefix: 显示在消息左边的内容
+  #支持PlaceholderAPI的变量.彩色代码.
+  #如果你通过指令单独设置了玩家的前缀，则这个玩家的前缀会覆盖这个.
+  prefix: "&7%player_name%:"
+
+  #suffix: 显示在消息右边的内容.
+  #同样支持PlaceholderAPI的变量.彩色代码.
+  #如果你通过指令单独设置了玩家的后缀，则这个玩家的前缀会覆盖这个.
+  suffix: "&b<牛逼>"
+
+  #悬浮文字,鼠标放到玩家 prefix 上所显示的内容,可以显示多行，但不推荐太多，推荐8行以内.
+  #同样支持PlaceholderAPI的变量.彩色代码.
+  #注意:  此项功能只有默认左下角聊天框才起作用，另外如actionbar或bossbar将不会生效.
+  #留空则关闭此项功能.
+  holo_prefix:
+    - "&a名称: &7%player_name%"
+
+  #同上, 但是显示在suffix
+  holo_suffix:
+    - "&b等级: &e%player_level%"
+
+  #同上, 但是显示在 玩家的消息文本上
+  holo_text:
+    - "for test"
+
+vip:
+  permission: "lcm.chatformat.vip"
+  priority: 3
+  type: "normal"
+  prefix: "&7%player_name%:"
+  suffix: "&b<牛逼>"
+  holo_prefix:
+    - "&a名称: &7%player_name%"
+  holo_suffix:
+    - "&b等级: &e%player_level%"
+  holo_text:
+    - "for test"
+mvp:
+  permission: "lcm.chatformat.mvp"
+  priority: 2
+  type: "normal"
+  prefix: "&7%player_name%:"
+  suffix: "&b<牛逼>"
+  holo_prefix:
+    - "&a名称: &7%player_name%"
+  holo_suffix:
+    - "&b等级: &e%player_level%"
+  holo_text:
+    - "for test"

@@ -4,7 +4,9 @@ public enum YamlFile {
 
     YAML_MAIN("config"),
     YAML_COMMAND("command"),
-    YAML_LANGUAGE("lang");
+    YAML_LANGUAGE("lang"),
+    YAML_FORMAT("format"),
+    YAML_FILTER("filter");
 
     private final String value;
 

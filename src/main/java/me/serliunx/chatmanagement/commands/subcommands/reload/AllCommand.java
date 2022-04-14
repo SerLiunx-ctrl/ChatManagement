@@ -3,7 +3,6 @@ package me.serliunx.chatmanagement.commands.subcommands.reload;
 import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.commands.Command;
 import org.bukkit.command.CommandSender;
-
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 public class AllCommand extends Command {
 
     public AllCommand() {
-        super(Collections.singletonList("all"), "reload all config", "/lr reload all", "",
+        super(Collections.singletonList("all"), "reload all config", "/chatm reload all", "",
                 false, Duration.ZERO);
     }
 

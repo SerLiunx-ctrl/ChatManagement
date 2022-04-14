@@ -1,0 +1,22 @@
+#过滤器
+
+#组名
+default:
+  #跳过检查所需要的权限
+  skip-permission: "chatfilters.skip.default"
+  #是否启用该组
+  enable: true
+  #替换的字符
+  replace-by: "*"
+  #值
+  values:
+    - "nt"
+another-group:
+  skip-permission: "chatfilters.skip.defaults"
+  enable: true
+  replace-by: "我爱你"
+  values:
+    - "草"
+    - "傻逼"
+    - "你妈逼"
+    - "你麻痹"

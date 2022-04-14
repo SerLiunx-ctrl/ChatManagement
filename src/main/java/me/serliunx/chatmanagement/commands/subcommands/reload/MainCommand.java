@@ -13,7 +13,7 @@ import java.util.List;
 public class MainCommand extends Command {
 
     public MainCommand() {
-        super(Collections.singletonList("main"), "reload main config file","/lr reload main",
+        super(Collections.singletonList("main"), "reload main config file","/chatm reload main",
                 Permission.COMMAND_ADMIN_RELOAD.getValue(), false, Duration.ZERO);
     }
 

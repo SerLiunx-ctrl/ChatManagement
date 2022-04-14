@@ -1,0 +1,37 @@
+package me.serliunx.chatmanagement.managers;
+
+import me.serliunx.chatmanagement.database.entities.Format;
+import java.util.HashMap;
+import java.util.Map;
+
+public final class FormatManager {
+
+    private final Map<String, Format> formatMap;
+
+    public FormatManager(){
+        formatMap = new HashMap<>();
+    }
+
+    public void reloadFormats(){
+        this.loadFromFile();
+    }
+
+    /**
+     * 新增一个聊天格式, 不允许重复添加.
+     * @param name 格式名称
+     * @param format 具体格式
+     * @return 如果已存在同名格式将返回假, 否则返回真.
+     */
+    public boolean addFormat(String name, Format format){
+        if(formatMap.containsKey(name))
+            return false;
+        formatMap.put(name, format);
+        return true;
+    }
+
+    private void loadFromFile(){
+
+    }
+
+
+}
