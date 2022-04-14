@@ -18,14 +18,13 @@ public final class FormatManager {
 
     /**
      * 新增一个聊天格式, 不允许重复添加.
-     * @param name 格式名称
      * @param format 具体格式
      * @return 如果已存在同名格式将返回假, 否则返回真.
      */
-    public boolean addFormat(String name, Format format){
-        if(formatMap.containsKey(name))
+    public boolean addFormat(Format format){
+        if(formatMap.containsKey(format.getName()))
             return false;
-        formatMap.put(name, format);
+        formatMap.put(format.getName(), format);
         return true;
     }
 

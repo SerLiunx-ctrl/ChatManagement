@@ -11,37 +11,37 @@ public final class Format implements Cloneable{
 
     private String name;
     private String permission;
-    private ChatType type;
+    private ChatType chatType;
     private String prefix;
     private String suffix;
     private int priority;
-    private List<String> holo_prefix;
-    private List<String> hole_suffix;
-    private List<String> hole_text;
+    private List<String> prefixHolo;
+    private List<String> suffixHolo;
+    private List<String> textHolo;
 
     /**
      * 所有属性构造器
      *
      * @param name  聊天格式的名字, 聊天格式的唯一标识. 不能重复
      * @param permission  权限, 在为玩家选择聊天格式时 这是检查项目之一.
-     * @param type  文字显示的方式: {@link ChatType}
+     * @param chatType  文字显示的方式: {@link ChatType}
      * @param prefix 前缀, 不是权限组插件中的前缀,指的是玩家的聊天文字前的所有内容
      * @param suffix 后缀, 意义同前缀.
      * @param priority 优先级, 当玩家拥有两个聊天格式的权限时, 会优先选择优先级高的.
-     * @param holo_prefix 悬浮文字, 鼠标放在前缀上时显示.
-     * @param hole_suffix 悬浮文字, 鼠标放在后缀上时显示.
-     * @param hole_text 悬浮文字, 鼠标放在聊天文字上时显示.
+     * @param prefixHolo 悬浮文字, 鼠标放在前缀上时显示.
+     * @param suffixHolo 悬浮文字, 鼠标放在后缀上时显示.
+     * @param textHolo 悬浮文字, 鼠标放在聊天文字上时显示.
      */
-    public Format(String name, String permission, ChatType type, String prefix, String suffix, int priority, List<String> holo_prefix, List<String> hole_suffix, List<String> hole_text) {
+    public Format(String name, String permission, ChatType chatType, String prefix, String suffix, int priority, List<String> prefixHolo, List<String> suffixHolo, List<String> textHolo) {
         this.name = name;
         this.permission = permission;
-        this.type = type;
+        this.chatType = chatType;
         this.prefix = prefix;
         this.suffix = suffix;
         this.priority = priority;
-        this.holo_prefix = holo_prefix;
-        this.hole_suffix = hole_suffix;
-        this.hole_text = hole_text;
+        this.prefixHolo = prefixHolo;
+        this.suffixHolo = suffixHolo;
+        this.textHolo = textHolo;
     }
 
     /**
@@ -57,7 +57,7 @@ public final class Format implements Cloneable{
     public Format(String name, String permission, ChatType type, String prefix, String suffix, int priority) {
         this.name = name;
         this.permission = permission;
-        this.type = type;
+        this.chatType = type;
         this.prefix = prefix;
         this.suffix = suffix;
         this.priority = priority;
@@ -79,12 +79,12 @@ public final class Format implements Cloneable{
         this.permission = permission;
     }
 
-    public ChatType getType() {
-        return type;
+    public ChatType getChatType() {
+        return chatType;
     }
 
-    public void setType(ChatType type) {
-        this.type = type;
+    public void setChatType(ChatType chatType) {
+        this.chatType = chatType;
     }
 
     public String getPrefix() {
@@ -111,28 +111,28 @@ public final class Format implements Cloneable{
         this.priority = priority;
     }
 
-    public List<String> getHolo_prefix() {
-        return holo_prefix;
+    public List<String> getPrefixHolo() {
+        return prefixHolo;
     }
 
-    public void setHolo_prefix(List<String> holo_prefix) {
-        this.holo_prefix = holo_prefix;
+    public void setPrefixHolo(List<String> prefixHolo) {
+        this.prefixHolo = prefixHolo;
     }
 
-    public List<String> getHole_suffix() {
-        return hole_suffix;
+    public List<String> getSuffixHolo() {
+        return suffixHolo;
     }
 
-    public void setHole_suffix(List<String> hole_suffix) {
-        this.hole_suffix = hole_suffix;
+    public void setSuffixHolo(List<String> suffixHolo) {
+        this.suffixHolo = suffixHolo;
     }
 
-    public List<String> getHole_text() {
-        return hole_text;
+    public List<String> getTextHolo() {
+        return textHolo;
     }
 
-    public void setHole_text(List<String> hole_text) {
-        this.hole_text = hole_text;
+    public void setTextHolo(List<String> textHolo) {
+        this.textHolo = textHolo;
     }
 
     @Override
