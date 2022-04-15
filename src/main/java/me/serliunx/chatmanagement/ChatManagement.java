@@ -1,6 +1,7 @@
 package me.serliunx.chatmanagement;
 
 import me.serliunx.chatmanagement.commands.Commands;
+import me.serliunx.chatmanagement.configs.SQL;
 import me.serliunx.chatmanagement.listener.PlayerListener;
 import me.serliunx.chatmanagement.managers.*;
 import org.bukkit.Bukkit;
@@ -12,6 +13,7 @@ public final class ChatManagement extends JavaPlugin {
     private Commands commands;
     private ConfigManager configManager;
     private CommandManager commandManager;
+    private SQL sql;
     private SQLManager sqlManager;
     private FormatManager formatManager;
     private FilterManager filterManager;
@@ -25,6 +27,7 @@ public final class ChatManagement extends JavaPlugin {
         commands = new Commands();
         configManager = new ConfigManager();
         commandManager = new CommandManager("chatmanagement");
+        sql = new SQL();
         sqlManager = new SQLManager();
         formatManager = new FormatManager();
         filterManager = new FilterManager();
@@ -70,6 +73,10 @@ public final class ChatManagement extends JavaPlugin {
 
     public ControllerManager getControllerManager() {
         return controllerManager;
+    }
+
+    public SQL getSql() {
+        return sql;
     }
 
     public static ChatManagement getInstance(){
