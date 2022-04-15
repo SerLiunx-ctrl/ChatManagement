@@ -7,6 +7,8 @@ import me.serliunx.chatmanagement.managers.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.SQLException;
+
 public final class ChatManagement extends JavaPlugin {
 
     private static ChatManagement instance;
@@ -29,6 +31,13 @@ public final class ChatManagement extends JavaPlugin {
         commandManager = new CommandManager("chatmanagement");
         sql = new SQL();
         sqlManager = new SQLManager();
+
+        try{
+            sqlManager.init(sql);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         formatManager = new FormatManager();
         filterManager = new FilterManager();
         userManager = new UserManager();
@@ -40,7 +49,9 @@ public final class ChatManagement extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        if(sqlManager.isConnected()){
+            sqlManager.disconnect();
+        }
     }
 
     public CommandManager getCommandManager(){

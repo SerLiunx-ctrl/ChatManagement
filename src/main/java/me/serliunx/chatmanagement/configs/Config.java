@@ -5,7 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 
-public abstract class Config {
+public class Config {
 
     private final String fileName;
     private final String pathName;
@@ -35,8 +35,6 @@ public abstract class Config {
             ChatManagement.getInstance().saveResource(fileName,false);
         configuration = YamlConfiguration.loadConfiguration(file);
     }
-
-    public void saveConfig(){};
 
     public FileConfiguration getConfiguration(){
         return configuration;
