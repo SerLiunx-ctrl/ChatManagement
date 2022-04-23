@@ -20,7 +20,7 @@ public final class User{
     private List<String> textHolo;
     private Map<String, Group> groups;
     private ChatType chatType;
-    private UUID uuid;
+    private final UUID uuid;
     private UUID anotherUUID;
     private boolean pmStatus;
 
@@ -259,5 +259,14 @@ public final class User{
      */
     public Player getPlayer(){
         return Bukkit.getPlayer(uuid);
+    }
+
+    /**
+     * 检查该玩家是否有指定权限.
+     * @param permission 权限节点
+     * @return 有该权限返回真, 否则返回假.
+     */
+    public boolean hasPermission(String permission){
+        return getPlayer().hasPermission(permission);
     }
 }
