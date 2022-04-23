@@ -17,6 +17,9 @@ public class AllCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String[] arguments) {
         ChatManagement.getInstance().getConfigManager().reloadConfigs();
+        ChatManagement.getInstance().getCommandManager().reloadCommands();
+        ChatManagement.getInstance().getFormatManager().reloadFormats();
+        ChatManagement.getInstance().getFilterManager().reloadFilter();
         return true;
     }
 

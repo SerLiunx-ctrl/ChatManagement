@@ -1,6 +1,8 @@
 package me.serliunx.chatmanagement.database.entities;
 
 import me.serliunx.chatmanagement.enums.ChatType;
+import me.serliunx.chatmanagement.enums.DefaultValue;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +36,8 @@ public final class User{
      * @param uuid 玩家自己的UUID, 该实体唯一标识符
      * @param pmStatus 私聊的状态.
      */
-    public User(String prefix, String suffix, List<String> prefixHolo, List<String> suffixHolo, List<String> textHolo, ChatType chatType, UUID uuid, boolean pmStatus) {
+    public User(String prefix, String suffix, List<String> prefixHolo, List<String> suffixHolo, List<String> textHolo,
+                ChatType chatType, UUID uuid, boolean pmStatus) {
         this.prefix = prefix;
         this.suffix = suffix;
         this.prefixHolo = prefixHolo;
@@ -64,10 +67,14 @@ public final class User{
         groups = new HashMap<>();
     }
 
-    /**
-     * 保留空参数构造器.
-     */
-    public User(){}
+    public User(UUID uuid){
+        prefix = DefaultValue.PREFIX.getValue();
+        suffix = DefaultValue.SUFFIX.getValue();
+        chatType = ChatType.DEFAULT;
+        this.uuid = uuid;
+        pmStatus = true;
+        groups = new HashMap<>();
+    }
 
     /**
      * 获取用户的前缀
@@ -244,5 +251,13 @@ public final class User{
      */
     public boolean leaveGroup(@NotNull Group group){
         return false;
+    }
+
+    /**
+     * 获取真实玩家
+     * @return 玩家
+     */
+    public Player getPlayer(){
+        return Bukkit.getPlayer(uuid);
     }
 }

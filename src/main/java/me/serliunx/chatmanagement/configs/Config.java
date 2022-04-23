@@ -25,8 +25,8 @@ public class Config {
             return true;
         }catch(Exception e){
             ChatManagement.getInstance().getLogger().warning(e.toString());
+            return false;
         }
-        return false;
     }
 
     private void saveDefaultConfig() {

@@ -10,12 +10,12 @@ public interface Controller {
      * @param user 聊天的发送方
      * @param format 格式
      */
-    void show(User user, Format format);
+    void show(String text, User user, Format format);
 
     /**
      * 发送私密信息
      * @param user 发送方
      * @param target 接受方
      */
-    void showPrivateMessage(User user, User target);
+    void showPrivateMessage(String text, User user, User target);
 }

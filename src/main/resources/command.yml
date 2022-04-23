@@ -1,21 +1,30 @@
 reload:
   description: "&a重载插件."
-  syntax: "&e/lr reload <参数>"
+  syntax: "&e/chatm reload <参数>"
   enable: true
   childs:
     all:
       description: "&a重载插件所有配置."
-      syntax: "&e/lr reload all"
+      syntax: "&e/chatm reload all"
       enable: true
     lang:
       description: "&a重载 lang.yml"
-      syntax: "&e/lr reload lang"
+      syntax: "&e/chatm reload lang"
       enable: true
     main:
       description: "&a重载 config.yml"
-      syntax: "&e/lr reload main"
+      syntax: "&e/chatm reload main"
       enable: true
+    filter:
+      description: "&a重载 filter.yml"
+      syntax: "&e/chatm reload main"
+      enable: true
+    format:
+      description: "&a重载 format.yml"
+      syntax: "&e/chatm reload main"
+      enable: true
+
 help:
   description: "&a查看帮助."
-  syntax: "&e/lr help <指令>"
+  syntax: "&e/chatm help <指令>"
   enable: true

@@ -4,6 +4,7 @@ description: 'A ChatManagement plugin.'
 main: me.serliunx.chatmanagement.ChatManagement
 api-version: 1.17
 authors: [ SerLiunx ]
+softdepend: [PlaceholderAPI]
 commands:
   chatmanagement:
     aliases: ["chatm", cm]

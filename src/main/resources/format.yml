@@ -7,9 +7,9 @@ default:
   #优先级,数字越小。优先级越小(作用: 当一个玩家同时拥有两个组的权限时，系统会有限选择优先级高的组, 除非玩家自己设置了格式)
   priority: 1
 
-  #聊天类型: normal - 普通左下角聊天框, actionbar - 物品栏上方的ActionBar, bossbar - boss血条(屏幕上方)
+  #聊天类型: NORMAL - 普通左下角聊天框, ACTION_BAR - 物品栏上方, BOSS_BAR - boss血条(屏幕上方)
   #如果你通过指令单独设置了玩家的聊天类型，则这个玩家的聊天类型会覆盖这个.
-  type: "normal"
+  type: NORMAL
 
   #prefix: 显示在消息左边的内容
   #支持PlaceholderAPI的变量.彩色代码.
@@ -39,7 +39,7 @@ default:
 vip:
   permission: "lcm.chatformat.vip"
   priority: 3
-  type: "normal"
+  type: NORMAL
   prefix: "&7%player_name%:"
   suffix: "&b<牛逼>"
   holo_prefix:
@@ -51,7 +51,7 @@ vip:
 mvp:
   permission: "lcm.chatformat.mvp"
   priority: 2
-  type: "normal"
+  type: NORMAL
   prefix: "&7%player_name%:"
   suffix: "&b<牛逼>"
   holo_prefix:

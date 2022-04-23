@@ -18,6 +18,7 @@ public class FormatCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String[] arguments) {
         if(ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_FORMAT.getValue()).reloadConfig()){
+            ChatManagement.getInstance().getFormatManager().reloadFormats();
             sender.sendMessage(StringUtils.Color("language config reloaded!"));
             return true;
         }

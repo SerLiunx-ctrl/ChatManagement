@@ -2,11 +2,12 @@ package me.serliunx.chatmanagement.managers;
 
 import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.configs.SQL;
+import me.serliunx.chatmanagement.database.entities.User;
+import me.serliunx.chatmanagement.enums.ChatType;
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.*;
 
 public final class SQLManager {
 
@@ -15,6 +16,7 @@ public final class SQLManager {
     public void init(SQL sqlConfig) throws SQLException {
         String databaseURL =getDatabaseURL(sqlConfig);
         connection = DriverManager.getConnection(databaseURL);
+        createTable();
     }
 
     public Connection getConnection() {
@@ -41,5 +43,80 @@ public final class SQLManager {
                     + "/" + sqlConfig.database + "?useSSL=" + sqlConfig.useSSL + "&autoReconnect=true";
             case SQLITE -> "jdbc:sqlite:" + new File(ChatManagement.getInstance().getDataFolder(), sqlConfig.database + ".db");
         };
+    }
+
+    private void createTable() throws SQLException{
+        PreparedStatement ps;
+        ps = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS "+ ChatManagement.getInstance().getSql().playerTable +" (UUID VARCHAR(100), PREFIX VARCHAR(100), SUFFIX VARCHAR(100), CHAT_TYPE VARCHAR(100), " +
+                "PRIVATE_MESSAGE VARCHAR(20), PREFIX_HOLO VARCHAR(500), SUFFIX_HOLO VARCHAR(500), TEXT_HOLO VARCHAR(500), PRIMARY KEY(UUID))");
+        ps.executeUpdate();
+    }
+
+    public void createPlayer(User user) throws SQLException{
+        if(!exists(user)){
+            PreparedStatement ps = getConnection().prepareStatement("INSERT INTO " + ChatManagement.getInstance()
+                    .getSql().playerTable + " VALUES (?,?,?,?,?,?,?,?)");
+            ps.setString(1, user.getUuid().toString());
+            ps.setString(2, user.getPrefix());
+            ps.setString(3, user.getSuffix());
+            ps.setString(4, user.getChatType().toString());
+            ps.setString(5, String.valueOf(user.isPmStatus()));
+            ps.setString(6,null);
+            ps.setString(7,null);
+            ps.setString(8,null);
+            ps.executeUpdate();
+        }
+    }
+
+    public Map<UUID, User> loadPlayers(){
+        Map<UUID, User> userMap = new HashMap<>();
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM " + ChatManagement.getInstance().getSql().playerTable);
+            ResultSet rs = ps.executeQuery();
+            List<String> prefix_holo = new ArrayList<>();
+            List<String> suffix_holo = new ArrayList<>();
+            List<String> text_holo = new ArrayList<>();
+
+            while (rs.next()){
+                if(rs.getString(6) != null){
+                    String[] s = rs.getString(6).split("\\\\n", -1);
+                    prefix_holo = Arrays.asList(s);
+                }
+                if(rs.getString(7) != null){
+                    String[] s = rs.getString(7).split("\\\\n", -1);
+                    suffix_holo = Arrays.asList(s);
+                }
+                if(rs.getString(8) != null){
+                    String[] s = rs.getString(8).split("\\\\n", -1);
+                    text_holo = Arrays.asList(s);
+                }
+                User user = new User(rs.getString(2), rs.getString(3), prefix_holo, suffix_holo, text_holo,
+                        ChatType.valueOf(rs.getString(4)), UUID.fromString(rs.getString(1)), rs.getBoolean(5));
+                userMap.put(UUID.fromString(rs.getString(1)), user);
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return userMap;
+    }
+
+    /**
+     * 验证数据库中是否存在该用户
+     * @param user 用户
+     * @return 存在返回真,否则返回假
+     */
+    public boolean exists(@NotNull User user){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM " + ChatManagement.getInstance()
+                    .getSql().playerTable + " WHERE UUID=?");
+            ps.setString(1,user.getUuid().toString());
+            ResultSet results = ps.executeQuery();
+            return results.next();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

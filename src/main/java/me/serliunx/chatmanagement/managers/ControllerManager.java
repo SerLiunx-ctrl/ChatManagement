@@ -25,14 +25,11 @@ public class ControllerManager {
      * @return 返回一个控制器, Normal, ActionBar, BossBar {@link ChatType}
      */
     public @NotNull Controller matchController(@NotNull Format format){
-        switch (format.getChatType()){
-            case BOSS_BAR:
-                return bossbar;
-            case ACTION_BAR:
-                return actionbar;
-            default:
-                return normal;
-        }
+        return switch (format.getChatType()) {
+            case BOSS_BAR -> bossbar;
+            case ACTION_BAR -> actionbar;
+            default -> normal;
+        };
     }
 
     /**
@@ -44,6 +41,16 @@ public class ControllerManager {
         Format format = ChatManagement.getInstance().getFormatManager().matchPlayerFormat(player);
         User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
         if(user != null)
-            matchController(format).show(user, format);
+            matchController(format).show(text, user, format);
+    }
+
+    /**
+     * 检测一个玩家是不是在私聊模式中.
+     *
+     * @param user 玩家.
+     * @return 如果在私聊中返回真, 否则返回假.
+     */
+    public boolean isInPm(User user){
+        return false;
     }
 }

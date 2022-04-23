@@ -3,6 +3,10 @@ package me.serliunx.chatmanagement.managers;
 import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.database.entities.Format;
 import me.serliunx.chatmanagement.database.entities.User;
+import me.serliunx.chatmanagement.enums.ChatType;
+import me.serliunx.chatmanagement.enums.DefaultValue;
+import me.serliunx.chatmanagement.enums.YamlFile;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
@@ -13,16 +17,19 @@ import java.util.Map;
 public final class FormatManager {
 
     private final Map<String, Format> formatMap;
+    private FileConfiguration formatFile;
 
     public FormatManager(){
         formatMap = new HashMap<>();
-        loadFromFile();
+        reloadFormats();
     }
 
     /**
      * 重载所有聊天格式
      */
     public void reloadFormats(){
+        formatFile = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_FORMAT
+                .getValue()).getConfiguration();
         loadFromFile();
     }
 
@@ -57,40 +64,39 @@ public final class FormatManager {
         if(!user.getChatType().equals(format.getChatType()))
             format.setChatType(user.getChatType());
 
-        if(!user.getPrefix().equals("default"))
+        if(!user.getPrefix().equals(DefaultValue.PREFIX.getValue()))
             format.setPrefix(user.getPrefix());
 
-        if(!user.getSuffix().equals("default"))
+        if(!user.getSuffix().equals(DefaultValue.SUFFIX.getValue()))
             format.setSuffix(user.getSuffix());
 
         if(user.getPrefixHolo() != null)
-            if(!user.getPrefixHolo().isEmpty())
-                format.setPrefixHolo(user.getPrefixHolo());
+            format.setPrefixHolo(user.getPrefixHolo());
 
         if(user.getSuffixHolo() != null)
-            if(!user.getSuffixHolo().isEmpty())
-                format.setSuffixHolo(user.getSuffixHolo());
+            format.setSuffixHolo(user.getSuffixHolo());
 
         if(user.getTextHolo() != null)
-            if(!user.getTextHolo().isEmpty())
-                format.setTextHolo(user.getTextHolo());
+            format.setTextHolo(user.getTextHolo());
 
         return format;
     }
 
-    /**
-     * 新增一个聊天格式, 不允许重复添加.
-     * @param format 具体格式
-     * @return 如果已存在同名格式将返回假, 否则返回真.
-     */
-    public boolean addFormat(Format format){
-        if(formatMap.containsKey(format.getName()))
-            return false;
+    private void addFormat(Format format){
         formatMap.put(format.getName(), format);
-        return true;
     }
 
     private void loadFromFile(){
-
+        formatMap.clear();
+        for(String key:formatFile.getKeys(false)){
+            //跳过重复的组
+            if(formatMap.containsKey(key))
+                continue;
+            addFormat(new Format(key, formatFile.getString(key+".permission"), ChatType.valueOf(formatFile.getString(key+".type")),
+                    formatFile.getString(key+".prefix"), formatFile.getString(key+".suffix"), formatFile.getInt(key+".priority"),
+                    formatFile.getStringList(key+".holo_prefix"), formatFile.getStringList(key+".holo_suffix"),
+                    formatFile.getStringList(key+".holo_text")));
+        }
+        ChatManagement.getInstance().getLogger().info("loaded " + formatMap.size() + " formats.");
     }
 }

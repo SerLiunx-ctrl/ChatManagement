@@ -201,20 +201,6 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                 || command.getPermission().equalsIgnoreCase("liunxrpg.");
     }
 
-    public Optional<Command> findExecutingCommand(String[] arguments) {
-        if (arguments.length == 0) {
-            return Optional.empty();
-        }
-
-        for (Command command : commands) {
-            if (command.getAliases().contains(arguments[0].toLowerCase())) {
-                return Optional.of(findExecutingCommand(command, arguments));
-            }
-        }
-
-        return Optional.empty();
-    }
-
     private Command findExecutingCommand(Command baseCommand, String[] args) {
         Command executingCommand = baseCommand;
 

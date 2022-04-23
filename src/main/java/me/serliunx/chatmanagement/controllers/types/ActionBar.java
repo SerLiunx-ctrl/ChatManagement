@@ -7,12 +7,12 @@ import me.serliunx.chatmanagement.database.entities.User;
 public final class ActionBar implements Controller {
 
     @Override
-    public void show(User user, Format format) {
+    public void show(String text, User user, Format format) {
 
     }
 
     @Override
-    public void showPrivateMessage(User user, User target) {
+    public void showPrivateMessage(String text, User user, User target) {
 
     }
 }
