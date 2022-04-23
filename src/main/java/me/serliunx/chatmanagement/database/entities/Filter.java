@@ -22,7 +22,7 @@ public final class Filter {
      * @param values  关键字
      * @param enable  是否启用
      */
-    public Filter(String name, String permission, String replacement, List<String> values, boolean enable) {
+    public Filter(String name, String permission, String replacement, boolean enable, List<String> values) {
         this.name = name;
         this.enable = enable;
         this.permission = permission;

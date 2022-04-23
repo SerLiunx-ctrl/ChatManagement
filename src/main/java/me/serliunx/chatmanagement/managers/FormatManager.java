@@ -82,7 +82,7 @@ public final class FormatManager {
         return format;
     }
 
-    private void addFormat(Format format){
+    public void addFormat(Format format){
         formatMap.put(format.getName(), format);
     }
 
