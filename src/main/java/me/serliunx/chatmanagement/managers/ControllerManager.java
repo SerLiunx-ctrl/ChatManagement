@@ -6,8 +6,13 @@ import me.serliunx.chatmanagement.controllers.types.*;
 import me.serliunx.chatmanagement.database.entities.Format;
 import me.serliunx.chatmanagement.database.entities.User;
 import me.serliunx.chatmanagement.enums.ChatType;
+import me.serliunx.chatmanagement.events.player.AdvanceChatEvent;
+import me.serliunx.chatmanagement.events.player.PrivateMessageEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerManager {
 
@@ -37,11 +42,32 @@ public class ControllerManager {
      * @param text 信息
      * @param player 玩家
      */
-    public void showMessage(String text, Player player){
+    public boolean showMessage(String text, Player player){
         Format format = ChatManagement.getInstance().getFormatManager().matchPlayerFormat(player);
         User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
-        if(user != null)
-            matchController(format).show(text, user, format);
+        if(user != null){
+            if(isInPm(user)){
+                //如果玩家在私聊状态中.
+                Player targetPlayer = Bukkit.getPlayer(user.getAnotherUUID());
+                if(targetPlayer == null)
+                    return false;
+
+                PrivateMessageEvent privateMessageEvent = new PrivateMessageEvent(true, player, targetPlayer, text);
+                Bukkit.getPluginManager().callEvent(privateMessageEvent);
+                if(privateMessageEvent.isCancelled()) return false;
+
+                matchController(format).showPrivateMessage(privateMessageEvent.getMessage(), user,
+                        ChatManagement.getInstance().getUserManager().getUser(privateMessageEvent.getTargetPlayer().getUniqueId()));
+                return true;
+            }
+
+            List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+            AdvanceChatEvent advanceChatEvent = new AdvanceChatEvent(true, player, format, text, players);
+            Bukkit.getPluginManager().callEvent(advanceChatEvent);
+            if(advanceChatEvent.isCancelled()) return false;
+            matchController(format).show(advanceChatEvent.getMessage(), user, advanceChatEvent.getFormat());
+        }
+        return true;
     }
 
     /**
@@ -51,6 +77,6 @@ public class ControllerManager {
      * @return 如果在私聊中返回真, 否则返回假.
      */
     public boolean isInPm(User user){
-        return false;
+        return user.isPmStatus() && user.getAnotherUUID() != null;
     }
 }

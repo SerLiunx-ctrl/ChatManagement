@@ -4,9 +4,12 @@ import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.database.entities.Filter;
 import me.serliunx.chatmanagement.database.entities.User;
 import me.serliunx.chatmanagement.enums.YamlFile;
+import me.serliunx.chatmanagement.events.player.FiltrationEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import java.util.ArrayList;
-import java.util.List;
+import org.bukkit.entity.Player;
+
+import java.util.*;
 
 public class FilterManager {
 
@@ -30,15 +33,34 @@ public class FilterManager {
     }
 
     public String filter(User user, String rawText){
+        Map<Filter,List<String>> filterListMap = new HashMap<>();
+        Player player = user.getPlayer();
+        FiltrationEvent filtrationEvent;
+
         for(Filter filter:filters){
             if(!filter.isEnable()) continue;
             if(filter.getPermission() == null) continue;
             if(filter.getPermission().equals("")) continue;
             if(user.hasPermission(filter.getPermission())) continue;
-            for(String value:filter.getValues())
-                if(rawText.contains(value))
-                    rawText = rawText.replace(value, filter.getReplacement());
+            filterListMap.put(filter, Collections.emptyList());
+
+            for(String value:filter.getValues()){
+                if(rawText.contains(value)){
+                    filterListMap.get(filter).add(value);
+                }
+            }
         }
+
+        filtrationEvent = new FiltrationEvent(true, player, rawText, filterListMap);
+        Bukkit.getPluginManager().callEvent(filtrationEvent);
+        if(filtrationEvent.isCancelled()) return rawText;
+
+        for(Filter f:filtrationEvent.getFilterListMap().keySet()){
+            for(String value:filtrationEvent.getFilterListMap().get(f)){
+                rawText = rawText.replace(value, f.getReplacement());
+            }
+        }
+
         return rawText;
     }
 

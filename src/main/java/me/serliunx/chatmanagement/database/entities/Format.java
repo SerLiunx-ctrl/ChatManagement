@@ -1,6 +1,7 @@
 package me.serliunx.chatmanagement.database.entities;
 
 import me.serliunx.chatmanagement.enums.ChatType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -218,11 +219,11 @@ public final class Format implements Cloneable{
     }
 
     @Override
-    public Object clone(){
+    public @NotNull Object clone(){
         try{
             return super.clone();
         }catch (CloneNotSupportedException e){
-            return null;
+            return this;
         }
     }
 }
