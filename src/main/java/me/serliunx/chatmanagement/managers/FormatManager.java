@@ -61,7 +61,7 @@ public final class FormatManager {
                     format = formatMap.get("default");
             }
         }
-        if(!user.getChatType().equals(format.getChatType()))
+        if(!user.getChatType().equals(ChatType.DEFAULT))
             format.setChatType(user.getChatType());
 
         if(!user.getPrefix().equals(DefaultValue.PREFIX.getValue()))
@@ -70,13 +70,13 @@ public final class FormatManager {
         if(!user.getSuffix().equals(DefaultValue.SUFFIX.getValue()))
             format.setSuffix(user.getSuffix());
 
-        if(user.getPrefixHolo() != null)
+        if(user.getPrefixHolo() != null && !user.getPrefixHolo().isEmpty())
             format.setPrefixHolo(user.getPrefixHolo());
 
-        if(user.getSuffixHolo() != null)
+        if(user.getSuffixHolo() != null && !user.getSuffixHolo().isEmpty())
             format.setSuffixHolo(user.getSuffixHolo());
 
-        if(user.getTextHolo() != null)
+        if(user.getTextHolo() != null && !user.getTextHolo().isEmpty())
             format.setTextHolo(user.getTextHolo());
 
         return format;

@@ -13,8 +13,7 @@ import java.util.List;
 public class LanguageCommand extends Command {
 
     public LanguageCommand(){
-        super(Collections.singletonList("lang"), "reload language file","/chatm reload lang",
-                Permission.COMMAND_ADMIN_RELOAD.getValue(), false, Duration.ZERO);
+        super(Collections.singletonList("lang"), "reload language file","/chatm reload lang", "", false, Duration.ZERO);
     }
 
     @Override

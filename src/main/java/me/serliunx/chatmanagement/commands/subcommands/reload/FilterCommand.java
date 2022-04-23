@@ -18,6 +18,7 @@ public class FilterCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String[] arguments) {
         if(ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_FILTER.getValue()).reloadConfig()){
+            ChatManagement.getInstance().getFilterManager().reloadFilter();
             sender.sendMessage(StringUtils.Color("language config reloaded!"));
             return true;
         }

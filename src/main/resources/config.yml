@@ -1,72 +1,7 @@
-#聊天管理系统主配置文件
-
-#主功能开关
-features:
-  #是否启用该插件，关闭后将不会对玩家聊天进行任何修改。
-  enable: true
-  #玩家发送文字的最短时间间隔(控制聊天速度)<以秒为单位>
-  cooldown: 3
-  #是否启用聊天格式修改
-  chat_format:
-    #是否开启物品栏上方的聊天信息: 需在format.yml配置指定格式.
-    action_bar: true
-    #是否开启bossbar的聊天信息: 需在format.yml配置指定格式.
-    boss_bar: true
-    #默认bossbar的显示时长,ticks为单位,minecraft中 1秒 = 20ticks. 默认为4秒,tick受性能影响 不能保证20tick = 1秒
-    boss_bar_timer: 80
-    #默认bossbar进度条的颜色，默认绿色(不是文字颜色)可选: GREEN,BLUE,PINK,PURPLE,RED,WHITE,YELLOW
-    boss_bar_color: "GREEN"
-    #默认bossbar进度条的风格,默认 SOLID , 可选: SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
-    boss_bar_style: "SOLID"
-
-  #文字过滤器设置
-  chat_filter:
-    #当玩家文字含有需要过滤的文字时, 提醒玩家的信息.
-    message: "&c你的文字里包含铭感文字哦."
-    #是否开启左下角普通聊天框的聊天信息过滤.
-    normal: true
-    #是否开启物品栏上方的聊天信息过滤。
-    action_bar: true
-    #是否开启bossbar的聊天信息过滤。
-    boss_bar: true
-    #私聊消息的聊天信息过滤。
-    private_message: true
-
-  #是否记录聊天日志,在插件根目录/data/message.log中.
-  log: false
-
-  #私聊相关设置
-  private_message:
-    #是否启用私聊, 关闭的话, 玩家无法通过本插件向另一玩家发起私聊, 默认开启.
-    enable: true
-    #私聊格式 - 接收方
-    format_receiver: "&d[私聊]&a玩家 &e{player_name} &a对你说: &6&n{message}"
-    #私聊格式 - 发送方
-    format_sender: "&d[私聊]&a你对玩家 &e{player_name} &a说: &6&n{message}"
-    #私聊前缀,用于快速点击回复
-    format_prefix: "&e[点击回复]&r"
-    #悬浮文字, 鼠标放在 format_prefix 上时会显示出来,默认执行命令为将私聊信息发送方设置为私聊对象.
-    prefix_holo: "&b&l点击将 &a{0} &b&l其设置会私聊对象, 之后可使用 &e{1} &b&l退出."
-    #是否允许玩家在关闭自身私聊的情况下向其他玩家发起私聊, 默认关闭.
-    pm_on_disable: false
-    #是否在对方线下时自动关闭对他的私聊. 默认开启
-    off_when_leave: true
-    #退出私聊时需要输入的文字,默认: exit, 只有在私聊状态中才会生效.
-    leavepm: "exit"
-
-  #mysql数据库相关设置
-  mysql:
-    #是否启用数据库,
-    enable: false
-    #地址
-    hostname: localhost
-    #端口
-    port: 3306
-    #数据库名
-    database: serliunx
-    #数据库用户名
-    username: root
-    #数据库密码
-    password: 2636257370
-    #表名
-    tablename: "liunxchat_playerdata"
+bossBar:
+  #默认bossbar的显示时长,ticks为单位,minecraft中 1秒 = 20ticks. 默认为4秒,tick受性能影响 不能保证20tick = 1秒
+  timer: 80
+  #默认bossbar进度条的颜色，默认绿色(不是文字颜色)可选: GREEN,BLUE,PINK,PURPLE,RED,WHITE,YELLOW
+  color: "GREEN"
+  #默认bossbar进度条的风格,默认 SOLID , 可选: SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+  style: "SOLID"

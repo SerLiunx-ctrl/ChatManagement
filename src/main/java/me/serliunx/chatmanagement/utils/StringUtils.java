@@ -1,9 +1,9 @@
 package me.serliunx.chatmanagement.utils;
 
+import me.serliunx.chatmanagement.enums.Permission;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +29,9 @@ public class StringUtils {
      * @return 翻译颜色代码后的文字.
      *
      */
-    public static String ColorWithPlayer(@Nullable Player player, @NotNull String rawText){
+    public static String ColorWithPlayer(@NotNull Player player, @NotNull String rawText){
+        if(player.hasPermission(Permission.OTHER_PLAYER_CHATCOLOR.getValue()))
+            return ColorNormal(ColorHexCode(rawText));
         return rawText;
     }
 

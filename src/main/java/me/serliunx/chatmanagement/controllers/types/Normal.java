@@ -16,6 +16,9 @@ public final class Normal implements Controller {
     @Override
     public void show(String text, User user, Format format) {
         StringBuilder prefix_holo = new StringBuilder();
+        StringBuilder suffix_holo = new StringBuilder();
+        StringBuilder text_holo = new StringBuilder();
+
         Player player = user.getPlayer();
         if(format.getPrefixHolo() != null){
             for(int i = 0;i < format.getPrefixHolo().size(); i++){
@@ -26,15 +29,37 @@ public final class Normal implements Controller {
             }
         }
 
+        if(format.getSuffixHolo() != null){
+            for(int i = 0;i < format.getSuffixHolo().size(); i++){
+                if(i == format.getSuffixHolo().size() - 1)
+                    suffix_holo.append(format.getSuffixHolo().get(i));
+                else
+                    suffix_holo.append(format.getSuffixHolo().get(i)).append("\n");
+            }
+        }
+
+        if(format.getTextHolo() != null){
+            for(int i = 0;i < format.getTextHolo().size(); i++){
+                if(i == format.getTextHolo().size() - 1)
+                    text_holo.append(format.getTextHolo().get(i));
+                else
+                    text_holo.append(format.getTextHolo().get(i)).append("\n");
+            }
+        }
+
         TextComponent prefix = new TextComponent(Placeholders.replacePlaceHolders(StringUtils.Color(format.getPrefix()),
                 player));
         TextComponent suffix = new TextComponent(Placeholders.replacePlaceHolders(StringUtils.Color(format.getSuffix()),
                 player));
-        Text tPrefix_holo = new Text(Placeholders.replacePlaceHolders(StringUtils.Color(prefix_holo.toString()), player));
+        TextComponent tText = new TextComponent(StringUtils.ColorWithPlayer(player, text));
 
-        TextComponent tText = new TextComponent(text);
+        Text tPrefix_holo = new Text(Placeholders.replacePlaceHolders(StringUtils.Color(prefix_holo.toString()), player));
+        Text tSuffix_holo = new Text(Placeholders.replacePlaceHolders(StringUtils.Color(suffix_holo.toString()), player));
+        Text tText_holo = new Text(Placeholders.replacePlaceHolders(StringUtils.Color(text_holo.toString()), player));
 
         prefix.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tPrefix_holo));
+        suffix.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tSuffix_holo));
+        tText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tText_holo));
 
         for(Player p: Bukkit.getOnlinePlayers())
             p.spigot().sendMessage(prefix, tText, suffix);
