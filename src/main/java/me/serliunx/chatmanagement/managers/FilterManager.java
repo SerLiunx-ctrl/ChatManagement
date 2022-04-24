@@ -8,6 +8,7 @@ import me.serliunx.chatmanagement.events.player.FiltrationEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -32,7 +33,11 @@ public class FilterManager {
             filters.add(filter);
     }
 
-    public String filter(User user, String rawText){
+    public List<Filter> getFilters() {
+        return filters;
+    }
+
+    public String filter(@NotNull User user, @NotNull String rawText){
         Map<Filter,List<String>> filterListMap = new HashMap<>();
         Player player = user.getPlayer();
         FiltrationEvent filtrationEvent;
@@ -55,9 +60,21 @@ public class FilterManager {
         Bukkit.getPluginManager().callEvent(filtrationEvent);
         if(filtrationEvent.isCancelled()) return rawText;
 
-        for(Filter f:filtrationEvent.getFilterListMap().keySet()){
-            for(String value:filtrationEvent.getFilterListMap().get(f)){
-                rawText = rawText.replace(value, f.getReplacement());
+        if(filtrationEvent.getValues() != null){
+            for(String value: filtrationEvent.getValues()){
+                if(filtrationEvent.getReplacement() != null)
+                    rawText = rawText.replace(value, filtrationEvent.getReplacement());
+                else
+                    rawText = rawText.replace(value, "*");
+            }
+        }else {
+            for(Filter f:filtrationEvent.getFilterListMap().keySet()){
+                for(String value:filtrationEvent.getFilterListMap().get(f)){
+                    if(filtrationEvent.getReplacement() != null)
+                        rawText = rawText.replace(value, filtrationEvent.getReplacement());
+                    else
+                        rawText = rawText.replace(value, f.getReplacement());
+                }
             }
         }
 

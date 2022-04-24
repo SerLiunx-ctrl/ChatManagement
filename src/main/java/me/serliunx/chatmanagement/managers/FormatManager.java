@@ -57,8 +57,6 @@ public final class FormatManager {
             if(f.getPriority() > max){
                 max = f.getPriority();
                 format = (Format) f.clone();
-                if(format == null)
-                    format = formatMap.get("default");
             }
         }
         if(!user.getChatType().equals(ChatType.DEFAULT))
