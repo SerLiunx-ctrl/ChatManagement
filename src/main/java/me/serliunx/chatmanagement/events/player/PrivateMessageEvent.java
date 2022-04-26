@@ -39,19 +39,37 @@ public class PrivateMessageEvent extends CPlayerEvent implements Cancellable {
         return handlers;
     }
 
-    public void setMessage(String message){
+    /**
+     * 设置触发该事件的私聊中的文本消息
+     * @param message 文本消息
+     */
+    public void setMessage(@NotNull String message){
         this.message = message;
     }
 
+    /**
+     * 获取触发该事件的私聊中的文本消息
+     * @return 文本消息
+     */
+    @NotNull
     public String getMessage(){
         return message;
     }
 
+    /**
+     * 获取触发该事件的私聊中的接收对象
+     * @return 接收对象
+     */
+    @NotNull
     public Player getTargetPlayer(){
         return targetPlayer;
     }
 
-    public void setTargetPlayer(Player targetPlayer){
+    /**
+     * 修改触发该事件的私聊中的接受对象
+     * @param targetPlayer 接受对象
+     */
+    public void setTargetPlayer(@NotNull Player targetPlayer){
         this.targetPlayer = targetPlayer;
     }
 }

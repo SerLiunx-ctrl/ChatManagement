@@ -33,11 +33,21 @@ public class AdvanceChatEvent extends CPlayerEvent implements Cancellable {
         this.cancelled = cancelled;
     }
 
+    /**
+     * 获取触发该事件的玩家所说的文字. <p>
+     * 该方法返回的是已经过滤过的文字.
+     * @return 文本
+     */
     @NotNull
     public String getMessage(){
         return message;
     }
 
+    /**
+     * 重新设置触发该事件的玩家所说的文字
+     *
+     * @param message 文本
+     */
     public void setMessage(@NotNull String message){
         this.message = message;
     }
@@ -53,11 +63,22 @@ public class AdvanceChatEvent extends CPlayerEvent implements Cancellable {
         return handlers;
     }
 
+    /**
+     * 获取触发该事件的玩家的聊天格式
+     *
+     * @return 聊天格式
+     */
     @NotNull
     public Format getFormat(){
         return format;
     }
 
+    /**
+     * 设置触发该事件的玩家的聊天格式 <p>
+     * 通过该方法设置的聊天格式只会修改本次事件的聊天格式<p>
+     * 并不会对玩家本身的聊天格式产生影响
+     * @param format 聊天格式
+     */
     public void setFormat(@NotNull Format format){
         this.format = format;
     }
