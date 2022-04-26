@@ -4,6 +4,7 @@ import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.configs.SQL;
 import me.serliunx.chatmanagement.database.entities.User;
 import me.serliunx.chatmanagement.enums.ChatType;
+import me.serliunx.chatmanagement.enums.DriverType;
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.sql.*;
@@ -15,7 +16,11 @@ public final class SQLManager {
 
     public void init(SQL sqlConfig) throws SQLException {
         String databaseURL =getDatabaseURL(sqlConfig);
-        connection = DriverManager.getConnection(databaseURL);
+        if(sqlConfig.driver == DriverType.MYSQL)
+            connection = DriverManager.getConnection(databaseURL,sqlConfig.username, sqlConfig.password);
+        else
+            connection = DriverManager.getConnection(databaseURL);
+
         createTable();
     }
 
@@ -100,6 +105,23 @@ public final class SQLManager {
             e.printStackTrace();
         }
         return userMap;
+    }
+
+    public void updatePlayer(User user, String attribute, String context) throws SQLException{
+        PreparedStatement ps = getConnection().prepareStatement("UPDATE " + ChatManagement.getInstance().getSql().playerTable +
+                " SET " + attribute + "=?" + " WHERE " + " UUID=?");
+        ps.setString(2,user.getUuid().toString());
+        if(attribute.equals("PREFIX_HOLO") || attribute.equals("SUFFIX_HOLO") || attribute.equals("TEXT_HOLO")){
+            if(context.equals("null")){
+                ps.setString(1, null);
+            }else {
+                ps.setString(1, context);
+            }
+        }else{
+            ps.setString(1, context);
+        }
+
+        ps.executeUpdate();
     }
 
     /**
