@@ -12,7 +12,7 @@ import java.util.List;
 public class HelpCommand extends Command {
 
     public HelpCommand() {
-        super(Collections.singletonList("help"), "show help pages.", "/lr help", "", false, Duration.ofSeconds(2));
+        super(Collections.singletonList("help"), "show help pages.", "/chatm help", "", false, Duration.ofSeconds(2));
     }
 
     @Override

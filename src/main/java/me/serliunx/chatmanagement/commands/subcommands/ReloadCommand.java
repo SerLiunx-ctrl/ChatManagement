@@ -15,7 +15,7 @@ public class ReloadCommand extends Command {
     public Command allCommand, mainCommand, languageCommand, filterCommand, formatCommand;
 
     public ReloadCommand() {
-        super(Collections.singletonList("reload"),"reload command.","/lr reload <target>", Permission.COMMAND_ADMIN_RELOAD.getValue(), false, Duration.ZERO);
+        super(Collections.singletonList("reload"),"reload command.","/chatm reload <target>", Permission.COMMAND_ADMIN_RELOAD.getValue(), false, Duration.ZERO);
 
         languageCommand = new LanguageCommand();
         mainCommand = new MainCommand();
