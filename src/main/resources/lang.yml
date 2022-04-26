@@ -1,2 +1,18 @@
-command:
-  no_permission: "&c权限不足! {0}" #{0} 权限.
+command_no_permission: "&c权限不足! {0}"
+#
+command_player_not_found: "&c未找到该玩家: &e{0}"
+#
+command_prefix_set: "&a成功将玩家&r {0} &r&a的前缀成功设置为:&r &7[ {1} &r&7]"
+command_suffix_set: "&a成功将玩家&r {0} &r&a的后缀成功设置为:&r &7[ {1} &r&7]"
+#
+command_prefixHolo_set: "&a成功将玩家&r {0} &r&2的前缀悬浮文字成功设置为:"
+command_prefixHolo_clear: "&a成功清空玩家 &r {0} &a的前缀悬浮文字, 将会显示默认的悬浮文字."
+#
+command_suffixHolo_set: "&a成功将玩家&r {0} &r&2的后缀悬浮文字成功设置为:"
+command_suffixHolo_clear: "&a成功清空玩家 &r {0} &a的后缀悬浮文字, 将会显示默认的悬浮文字."
+#
+command_textHolo_set: "&a成功将玩家&r {0} &r&2的聊天文本悬浮文字成功设置为:"
+command_textHolo_clear: "&a成功清空玩家 &r {0} &a的聊天文本悬浮文字, 将会显示默认的悬浮文字."
+#
+sql_error_maynotsave: "&c数据库连接出错! 将无法保存和读取数据, 请马上检查数据库设置."
+

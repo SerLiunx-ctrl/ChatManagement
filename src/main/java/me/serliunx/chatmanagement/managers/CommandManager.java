@@ -3,6 +3,7 @@ package me.serliunx.chatmanagement.managers;
 import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.commands.Command;
 import me.serliunx.chatmanagement.commands.Commands;
+import me.serliunx.chatmanagement.enums.YamlFile;
 import me.serliunx.chatmanagement.utils.StringUtils;
 import me.serliunx.chatmanagement.utils.TimeUtils;
 import org.bukkit.command.CommandExecutor;
@@ -29,7 +30,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             pluginCommand.setTabCompleter(this);
         }
 
-        commandConfiguration = ChatManagement.getInstance().getConfigManager().getByConfigName("command").getConfiguration();
+        commandConfiguration = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_COMMAND.getValue()).getConfiguration();
         registerCommands();
     }
 

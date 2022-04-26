@@ -5,6 +5,7 @@ import me.serliunx.chatmanagement.configs.SQL;
 import me.serliunx.chatmanagement.listener.PlayerListener;
 import me.serliunx.chatmanagement.managers.*;
 import me.serliunx.chatmanagement.placeholders.Placeholders;
+import me.serliunx.chatmanagement.utils.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ public final class ChatManagement extends JavaPlugin {
     private UserManager userManager;
     private ControllerManager controllerManager;
     private Placeholders placeholders;
+    private Language language;
 
     @Override
     public void onEnable() {
@@ -32,8 +34,11 @@ public final class ChatManagement extends JavaPlugin {
         commands = new Commands();
         configManager = new ConfigManager();
         commandManager = new CommandManager("chatmanagement");
+        //载入数据库配置
         sql = new SQL();
+
         sqlManager = new SQLManager();
+        language = new Language();
 
         try{
             sqlManager.init(sql);
@@ -96,6 +101,10 @@ public final class ChatManagement extends JavaPlugin {
 
     public Placeholders getPlaceholders() {
         return placeholders;
+    }
+
+    public Language getLanguage() {
+        return language;
     }
 
     public SQL getSql() {

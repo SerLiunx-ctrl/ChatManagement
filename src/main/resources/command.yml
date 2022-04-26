@@ -28,3 +28,16 @@ help:
   description: "&a查看帮助."
   syntax: "&e/chatm help <指令>"
   enable: true
+player:
+  description: "&a玩家相关指令."
+  syntax: "&e/chatm player <参数>"
+  enable: true
+  childs:
+    set:
+      description: "&a设置玩家指定参数."
+      syntax: "&e/chatm player set <玩家名> <参数>"
+      enable: true
+    info:
+      description: "&a查询指定玩家信息"
+      syntax: "&e/chatm player info <玩家名>"
+      enable: true
