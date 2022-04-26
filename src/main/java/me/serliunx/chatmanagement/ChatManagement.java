@@ -4,6 +4,7 @@ import me.serliunx.chatmanagement.commands.Commands;
 import me.serliunx.chatmanagement.configs.SQL;
 import me.serliunx.chatmanagement.listener.PlayerListener;
 import me.serliunx.chatmanagement.managers.*;
+import me.serliunx.chatmanagement.placeholders.Placeholders;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ public final class ChatManagement extends JavaPlugin {
     private FilterManager filterManager;
     private UserManager userManager;
     private ControllerManager controllerManager;
+    private Placeholders placeholders;
 
     @Override
     public void onEnable() {
@@ -43,6 +45,7 @@ public final class ChatManagement extends JavaPlugin {
         filterManager = new FilterManager();
         userManager = new UserManager();
         controllerManager = new ControllerManager();
+        placeholders = new Placeholders();
 
         //注册监听器.
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
@@ -89,6 +92,10 @@ public final class ChatManagement extends JavaPlugin {
 
     public ControllerManager getControllerManager() {
         return controllerManager;
+    }
+
+    public Placeholders getPlaceholders() {
+        return placeholders;
     }
 
     public SQL getSql() {
