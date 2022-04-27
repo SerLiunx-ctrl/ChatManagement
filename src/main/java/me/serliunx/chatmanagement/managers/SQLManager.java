@@ -56,25 +56,46 @@ public final class SQLManager {
 
     private void createTable() throws SQLException{
         PreparedStatement ps;
-        ps = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS "+ ChatManagement.getInstance().getSql().playerTable +" (UUID VARCHAR(100), PREFIX VARCHAR(100), SUFFIX VARCHAR(100), CHAT_TYPE VARCHAR(100), " +
+        ps = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS " + ChatManagement.getInstance().getSql().playerTable +" (UUID VARCHAR(100), PREFIX VARCHAR(100), SUFFIX VARCHAR(100), CHAT_TYPE VARCHAR(100), " +
                 "PRIVATE_MESSAGE VARCHAR(20), PREFIX_HOLO VARCHAR(500), SUFFIX_HOLO VARCHAR(500), TEXT_HOLO VARCHAR(500), PRIMARY KEY(UUID))");
         ps.executeUpdate();
     }
 
+    /**
+     * 在数据库中新建一条玩家数据, 会跳过重复的玩家
+     * @param user 玩家
+     */
     public void createPlayer(User user) throws SQLException{
         if(!exists(user)){
             PreparedStatement ps = getConnection().prepareStatement("INSERT INTO " + ChatManagement.getInstance()
                     .getSql().playerTable + " VALUES (?,?,?,?,?,?,?,?)");
-            ps.setString(1, user.getUuid().toString());
-            ps.setString(2, user.getPrefix());
-            ps.setString(3, user.getSuffix());
-            ps.setString(4, user.getChatType().toString());
-            ps.setString(5, String.valueOf(user.isPmStatus()));
-            ps.setString(6,null);
-            ps.setString(7,null);
-            ps.setString(8,null);
-            ps.executeUpdate();
+            createPlayerPs(ps, user);
         }
+    }
+
+    /**
+     * 在数据库中新建一条玩家数据, 会跳过重复的玩家
+     * @param user 玩家
+     * @param connection 数据库连接
+     */
+    public void createPlayer(User user, Connection connection) throws SQLException{
+        if(!exists(user, connection)){
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO " + ChatManagement.getInstance()
+                    .getSql().playerTable + " VALUES (?,?,?,?,?,?,?,?)");
+            createPlayerPs(ps, user);
+        }
+    }
+
+    private void createPlayerPs(PreparedStatement ps, User user) throws SQLException{
+        ps.setString(1, user.getUuid().toString());
+        ps.setString(2, user.getPrefix());
+        ps.setString(3, user.getSuffix());
+        ps.setString(4, user.getChatType().toString());
+        ps.setString(5, String.valueOf(user.isPmStatus()));
+        ps.setString(6,null);
+        ps.setString(7,null);
+        ps.setString(8,null);
+        ps.executeUpdate();
     }
 
     public Map<UUID, User> loadPlayers(){
@@ -132,6 +153,25 @@ public final class SQLManager {
     public boolean exists(@NotNull User user){
         try{
             PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM " + ChatManagement.getInstance()
+                    .getSql().playerTable + " WHERE UUID=?");
+            ps.setString(1,user.getUuid().toString());
+            ResultSet results = ps.executeQuery();
+            return results.next();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 验证数据库中是否存在该用户
+     * @param user 用户
+     * @param connection 数据库连接
+     * @return 存在返回真,否则返回假
+     */
+    public boolean exists(@NotNull User user, @NotNull Connection connection){
+        try{
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM " + ChatManagement.getInstance()
                     .getSql().playerTable + " WHERE UUID=?");
             ps.setString(1,user.getUuid().toString());
             ResultSet results = ps.executeQuery();

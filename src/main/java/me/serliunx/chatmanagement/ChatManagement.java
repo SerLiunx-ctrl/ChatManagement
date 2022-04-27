@@ -2,6 +2,7 @@ package me.serliunx.chatmanagement;
 
 import me.serliunx.chatmanagement.commands.Commands;
 import me.serliunx.chatmanagement.configs.SQL;
+import me.serliunx.chatmanagement.database.Converter;
 import me.serliunx.chatmanagement.listener.PlayerListener;
 import me.serliunx.chatmanagement.managers.*;
 import me.serliunx.chatmanagement.placeholders.Placeholders;
@@ -26,17 +27,20 @@ public final class ChatManagement extends JavaPlugin {
     private ControllerManager controllerManager;
     private Placeholders placeholders;
     private Language language;
+    private Converter converter;
+
+    @Override
+    public void onLoad(){
+        instance = this;
+    }
 
     @Override
     public void onEnable() {
-        instance = this;
-
         commands = new Commands();
         configManager = new ConfigManager();
         commandManager = new CommandManager("chatmanagement");
         //载入数据库配置
         sql = new SQL();
-
         sqlManager = new SQLManager();
         language = new Language();
 
@@ -51,6 +55,7 @@ public final class ChatManagement extends JavaPlugin {
         userManager = new UserManager();
         controllerManager = new ControllerManager();
         placeholders = new Placeholders();
+        converter = new Converter(sql, sqlManager);
 
         //注册监听器.
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
@@ -106,6 +111,8 @@ public final class ChatManagement extends JavaPlugin {
     public Language getLanguage() {
         return language;
     }
+
+    public Converter getConverter() {return converter; }
 
     public SQL getSql() {
         return sql;

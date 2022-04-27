@@ -7,4 +7,5 @@ public class Commands {
     public ReloadCommand reloadCommand = new ReloadCommand();
     public PlayerCommand playerCommand = new PlayerCommand();
     public PrivateMessageCommand privateMessageCommand = new PrivateMessageCommand();
+    public ConverterCommand converterCommand = new ConverterCommand();
 }

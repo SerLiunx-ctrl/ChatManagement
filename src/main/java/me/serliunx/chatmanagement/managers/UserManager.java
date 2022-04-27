@@ -6,9 +6,7 @@ import me.serliunx.chatmanagement.enums.DriverType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class UserManager {
     private Map<UUID, User> userMap = new HashMap<>();;
@@ -56,6 +54,10 @@ public class UserManager {
 
     public User fromPlayer(Player player){
         return new User(player.getUniqueId());
+    }
+
+    public List<User> getUsers(){
+        return new ArrayList<>(userMap.values());
     }
 
 }
