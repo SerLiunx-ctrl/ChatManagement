@@ -9,6 +9,3 @@ commands:
   chatmanagement:
     aliases: ["chatm", cm]
     description: main command for ChatManagement.
-  privatemessage:
-    aliases: ["pm", "m"]
-    description: private message for player.
