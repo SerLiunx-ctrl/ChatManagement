@@ -100,7 +100,7 @@ public final class SQLManager {
                     text_holo = Arrays.asList(s);
                 }
                 User user = new User(rs.getString(2), rs.getString(3), prefix_holo, suffix_holo, text_holo,
-                        ChatType.valueOf(rs.getString(4)), UUID.fromString(rs.getString(1)), rs.getBoolean(5));
+                        ChatType.valueOf(rs.getString(4)), UUID.fromString(rs.getString(1)), rs.getString(5).equals("true"));
                 userMap.put(UUID.fromString(rs.getString(1)), user);
 
             }
@@ -116,11 +116,7 @@ public final class SQLManager {
                 " SET " + attribute + "=?" + " WHERE " + " UUID=?");
         ps.setString(2,user.getUuid().toString());
         if(attribute.equals("PREFIX_HOLO") || attribute.equals("SUFFIX_HOLO") || attribute.equals("TEXT_HOLO")){
-            if(context.equals("null")){
-                ps.setString(1, null);
-            }else {
-                ps.setString(1, context);
-            }
+            ps.setString(1, context.equals("null") ? null : context);
         }else{
             ps.setString(1, context);
         }
