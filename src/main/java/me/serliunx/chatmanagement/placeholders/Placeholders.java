@@ -17,18 +17,25 @@ public class Placeholders {
 
     @Nullable
     public String getPlaceHolder(OfflinePlayer player, String param){
-        return switch (param) {
-            case "player_prefix" -> ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId()).getPrefix();
-            case "player_suffix" -> ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId()).getSuffix();
-            case "player_prefix_holo" -> String.join("\n", ChatManagement.getInstance().getUserManager()
+        switch (param) {
+            case "player_prefix":
+                return ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId()).getPrefix();
+            case "player_suffix":
+                return ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId()).getSuffix();
+            case "player_prefix_holo":
+                return String.join("\n", ChatManagement.getInstance().getUserManager()
                     .getUser(player.getUniqueId()).getPrefixHolo());
-            case "player_suffix_holo" -> String.join("\n", ChatManagement.getInstance().getUserManager()
+            case "player_suffix_holo":
+                return String.join("\n", ChatManagement.getInstance().getUserManager()
                     .getUser(player.getUniqueId()).getSuffixHolo());
-            case "player_text_holo" -> String.join("\n", ChatManagement.getInstance().getUserManager()
+            case "player_text_holo":
+                return String.join("\n", ChatManagement.getInstance().getUserManager()
                     .getUser(player.getUniqueId()).getTextHolo());
-            case "player_pm_status" -> String.valueOf(ChatManagement.getInstance().getUserManager()
+            case "player_pm_status":
+                return String.valueOf(ChatManagement.getInstance().getUserManager()
                     .getUser(player.getUniqueId()).isPmStatus());
-            default -> null;
-        };
+            default:
+                return null;
+        }
     }
 }

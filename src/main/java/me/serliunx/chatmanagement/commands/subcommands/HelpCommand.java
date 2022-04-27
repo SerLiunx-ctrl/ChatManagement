@@ -18,9 +18,10 @@ public class HelpCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String[] arguments) {
         if(arguments.length != 2){
-            sender.sendMessage(StringUtils.Color("&a&l========== &e&lLiunxRPG Command &a&l=========="));
+            sender.sendMessage(StringUtils.Color("&a&l========== &e&lChatManagement Command &a&l=========="));
             for(Command c: ChatManagement.getInstance().getCommandManager().getCommands()){
-                sender.sendMessage(StringUtils.Color(c.getSyntax() + " &f- " + c.getDescription()));
+                if(sender.hasPermission(c.getPermission()) || c.getPermission().equals(""))
+                    sender.sendMessage(StringUtils.Color(c.getSyntax() + " &f- " + c.getDescription()));
             }
             sender.sendMessage(StringUtils.Color("&a&l===================================="));
 
@@ -31,15 +32,20 @@ public class HelpCommand extends Command {
             if(arguments[1].equals(c.getAliases().get(0))){
                 if(sender.hasPermission(c.getPermission()) || c.getPermission().equals("")){
                     sender.sendMessage(StringUtils.Color(c.getSyntax() + " &f- " + c.getDescription()));
-                }
 
-                if(!c.getAliases().isEmpty()){
-                    sender.sendMessage(StringUtils.Color("&a可选参数:"));
-                    for(Command sub:c.getChilds()){
-                        sender.sendMessage(StringUtils.Color("  " + sub.getAliases().get(0) + " &e- &b" + sub.getDescription()));
+                    if(!c.getAliases().isEmpty()){
+                        sender.sendMessage(StringUtils.Color("&a可选参数:"));
+                        if(c.getChilds().isEmpty()){
+                            sender.sendMessage(StringUtils.Color("&7无."));
+                        }
+
+                        for(Command sub:c.getChilds()){
+                            sender.sendMessage(StringUtils.Color("  " + sub.getAliases().get(0) + " &e- &b" + sub.getDescription()));
+                        }
+                        return true;
                     }
                 }
-
+                sender.sendMessage("&cno permission!");
                 return true;
             }
         }

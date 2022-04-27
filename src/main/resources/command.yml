@@ -41,3 +41,7 @@ player:
       description: "&a查询指定玩家信息"
       syntax: "&e/chatm player info <玩家名>"
       enable: true
+pm:
+  description: "&a切换私聊, 带参数以指定私聊对象."
+  syntax: "&e/chatm pm <玩家名称(可选)>"
+  enable: true

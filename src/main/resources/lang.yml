@@ -15,4 +15,14 @@ command_textHolo_set: "&a成功将玩家&r {0} &r&2的聊天文本悬浮文字�
 command_textHolo_clear: "&a成功清空玩家 &r {0} &a的聊天文本悬浮文字, 将会显示默认的悬浮文字."
 #
 sql_error_maynotsave: "&c数据库连接出错! 将无法保存和读取数据, 请马上检查数据库设置."
+#
+privatemessage_switch: "&e私聊状态以切换: &r{0}"
+privatemessage_cannnotpmyou: "&c你不能私聊你自己!"
+privatemessage_found: "&a私聊对象以设置为玩家: &d{0} &a, 聊天栏中输入 &b{1} &a可快速退出私聊."
+privatemessage_off: "&c对方私聊已关闭, 你无法向其发送私聊."
+privatemessage_notonline: "&c该玩家不在线!"
+#
+placeholder_enable: "&a启用"
+placeholder_disable: "&c禁用"
+placeholder_default: "&f默认"
 

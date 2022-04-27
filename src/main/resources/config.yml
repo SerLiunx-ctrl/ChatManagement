@@ -1,3 +1,34 @@
+#数据库相关设置
+sql:
+  #数据库类型, 可选: MYSQL, SQLITE
+  driver: SQLITE
+  #MYSQL连接地址:
+  host: localhost
+  #MYSQL数据库端口
+  port: 3306
+  #数据库名, 即SQLITE的文件名
+  database: database
+  #MYSQL用户名
+  username: root
+  #MYSQL密码
+  password: 2636257370
+  #玩家数据表名称
+  playerTable: CM_PLAYER
+  #群组数据表名称
+  groupTable: CM_GROUP
+
+#私聊相关设置:
+private_message:
+  #如果在私聊中, 输入一下文字可快速退出私聊.
+  exit_text: "exit"
+  #过滤器, 是否要过滤私聊文字.
+  filter: true
+  #私聊格式:
+  #{player_name} - 玩家名称, {message} - 文本
+  format_receive: "&d&l[私聊] &a玩家: &e{player_name} &a对你说: &2{message}"
+  format_send: "&d&l[私聊] &a你对玩家 &e{player_name} &a说: &3{message}"
+
+#bossbar相关设置
 bossBar:
   #默认bossbar的显示时长,ticks为单位,minecraft中 1秒 = 20ticks. 默认为4秒,tick受性能影响 不能保证20tick = 1秒
   timer: 80

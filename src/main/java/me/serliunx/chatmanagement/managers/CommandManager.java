@@ -129,7 +129,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
      * @return 返回真如果可以执行, 否则返回假.
      */
     private boolean executionBlocked(Command command, @NotNull CommandSender commandSender) {
-        if (command.isForPlayer()) {
+        if (command.isForPlayer() && !(commandSender instanceof Player)) {
             commandSender.sendMessage(StringUtils.Color("&c only for player!"));
             return true;
         }
