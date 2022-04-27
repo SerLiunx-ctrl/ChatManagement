@@ -30,11 +30,14 @@ public class ControllerManager {
      * @return 返回一个控制器, Normal, ActionBar, BossBar {@link ChatType}
      */
     public @NotNull Controller matchController(@NotNull Format format){
-        return switch (format.getChatType()) {
-            case BOSS_BAR -> bossbar;
-            case ACTION_BAR -> actionbar;
-            default -> normal;
-        };
+        switch (format.getChatType()){
+            case ACTION_BAR:
+                return actionbar;
+            case BOSS_BAR:
+                return bossbar;
+            default:
+                return normal;
+        }
     }
 
     /**

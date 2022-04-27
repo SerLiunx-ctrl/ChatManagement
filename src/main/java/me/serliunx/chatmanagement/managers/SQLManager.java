@@ -43,11 +43,15 @@ public final class SQLManager {
     }
 
     private @NotNull String getDatabaseURL(SQL sqlConfig){
-        return switch (sqlConfig.driver) {
-            case MYSQL -> "jdbc:" + sqlConfig.driver.name().toLowerCase() + "://" + sqlConfig.host + ":" + sqlConfig.port
-                    + "/" + sqlConfig.database + "?useSSL=" + sqlConfig.useSSL + "&autoReconnect=true";
-            case SQLITE -> "jdbc:sqlite:" + new File(ChatManagement.getInstance().getDataFolder(), sqlConfig.database + ".db");
-        };
+        switch (sqlConfig.driver){
+            case MYSQL:
+                return "jdbc:" + sqlConfig.driver.name().toLowerCase() + "://" + sqlConfig.host + ":" + sqlConfig.port
+                        + "/" + sqlConfig.database + "?useSSL=" + sqlConfig.useSSL + "&autoReconnect=true";
+            case SQLITE:
+                return "jdbc:sqlite:" + new File(ChatManagement.getInstance().getDataFolder(), sqlConfig.database + ".db");
+            default:
+                throw new RuntimeException("unsupported sql driver!");
+        }
     }
 
     private void createTable() throws SQLException{
