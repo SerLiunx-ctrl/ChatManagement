@@ -45,31 +45,47 @@ public class ControllerManager {
      * @param text 信息
      * @param player 玩家
      */
-    public boolean showMessage(String text, Player player){
+    public boolean showMessage(@NotNull String text, @NotNull Player player){
         Format format = ChatManagement.getInstance().getFormatManager().matchPlayerFormat(player);
         User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
-        if(user != null){
-            if(isInPm(user)){
-                //如果玩家在私聊状态中.
-                Player targetPlayer = Bukkit.getPlayer(user.getAnotherUUID());
-                if(targetPlayer == null)
-                    return false;
+        if(user == null)
+            return false;
+        if(isInPm(user))
+            return showPm(format, text, player);
+        return showPublic(format, text, player);
+    }
 
-                PrivateMessageEvent privateMessageEvent = new PrivateMessageEvent(true, player, targetPlayer, text);
-                Bukkit.getPluginManager().callEvent(privateMessageEvent);
-                if(privateMessageEvent.isCancelled()) return false;
+    private boolean showPm(Format format, String text, Player player){
+        User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
+        Player targetPlayer = Bukkit.getPlayer(user.getAnotherUUID());
+        if(targetPlayer == null)
+            return true;
+        User targetUser = ChatManagement.getInstance().getUserManager().getUser(user.getAnotherUUID());
 
-                matchController(format).showPrivateMessage(privateMessageEvent.getMessage(), user,
-                        ChatManagement.getInstance().getUserManager().getUser(privateMessageEvent.getTargetPlayer().getUniqueId()));
-                return true;
-            }
-
-            List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
-            AdvanceChatEvent advanceChatEvent = new AdvanceChatEvent(true, player, format, text, players);
-            Bukkit.getPluginManager().callEvent(advanceChatEvent);
-            if(advanceChatEvent.isCancelled()) return false;
-            matchController(format).show(advanceChatEvent.getMessage(), user, advanceChatEvent.getFormat());
+        //检测对方是否中途关闭了私聊.
+        if(targetUser.isPmStatus()){
+            user.setAnotherUUID(null);
+            player.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("privatemessage_off"));
+            return true;
         }
+
+        PrivateMessageEvent privateMessageEvent = new PrivateMessageEvent(true, player, targetPlayer, text);
+        Bukkit.getPluginManager().callEvent(privateMessageEvent);
+        if(privateMessageEvent.isCancelled()) return showPublic(format, text, player);
+
+        matchController(format).showPrivateMessage(privateMessageEvent.getMessage(), user,
+                ChatManagement.getInstance().getUserManager().getUser(privateMessageEvent.getTargetPlayer().getUniqueId()));
+        return true;
+    }
+
+    private boolean showPublic(Format format, String text, Player player){
+        User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
+        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        AdvanceChatEvent advanceChatEvent = new AdvanceChatEvent(true, player, format, text, players);
+        Bukkit.getPluginManager().callEvent(advanceChatEvent);
+
+        if(advanceChatEvent.isCancelled()) return false;
+        matchController(format).show(advanceChatEvent.getMessage(), user, advanceChatEvent.getFormat());
         return true;
     }
 

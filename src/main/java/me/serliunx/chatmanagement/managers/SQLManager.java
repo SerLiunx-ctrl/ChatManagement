@@ -57,7 +57,7 @@ public final class SQLManager {
     private void createTable() throws SQLException{
         PreparedStatement ps;
         ps = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS " + ChatManagement.getInstance().getSql().playerTable +" (UUID VARCHAR(100), PREFIX VARCHAR(100), SUFFIX VARCHAR(100), CHAT_TYPE VARCHAR(100), " +
-                "PRIVATE_MESSAGE VARCHAR(20), PREFIX_HOLO VARCHAR(500), SUFFIX_HOLO VARCHAR(500), TEXT_HOLO VARCHAR(500), PRIMARY KEY(UUID))");
+                "PRIVATE_MESSAGE VARCHAR(20), PREFIX_HOLO VARCHAR(500), SUFFIX_HOLO VARCHAR(500), TEXT_HOLO VARCHAR(500), CHAT_STATUS VARCHAR(20), PRIMARY KEY(UUID))");
         ps.executeUpdate();
     }
 
@@ -68,7 +68,7 @@ public final class SQLManager {
     public void createPlayer(User user) throws SQLException{
         if(!exists(user)){
             PreparedStatement ps = getConnection().prepareStatement("INSERT INTO " + ChatManagement.getInstance()
-                    .getSql().playerTable + " VALUES (?,?,?,?,?,?,?,?)");
+                    .getSql().playerTable + " VALUES (?,?,?,?,?,?,?,?,?)");
             createPlayerPs(ps, user);
         }
     }
@@ -81,7 +81,7 @@ public final class SQLManager {
     public void createPlayer(User user, Connection connection) throws SQLException{
         if(!exists(user, connection)){
             PreparedStatement ps = connection.prepareStatement("INSERT INTO " + ChatManagement.getInstance()
-                    .getSql().playerTable + " VALUES (?,?,?,?,?,?,?,?)");
+                    .getSql().playerTable + " VALUES (?,?,?,?,?,?,?,?,?)");
             createPlayerPs(ps, user);
         }
     }
@@ -95,6 +95,7 @@ public final class SQLManager {
         ps.setString(6,null);
         ps.setString(7,null);
         ps.setString(8,null);
+        ps.setString(9, String.valueOf(user.getChatStatus()));
         ps.executeUpdate();
     }
 
@@ -121,7 +122,8 @@ public final class SQLManager {
                     text_holo = Arrays.asList(s);
                 }
                 User user = new User(rs.getString(2), rs.getString(3), prefix_holo, suffix_holo, text_holo,
-                        ChatType.valueOf(rs.getString(4)), UUID.fromString(rs.getString(1)), rs.getString(5).equals("true"));
+                        ChatType.valueOf(rs.getString(4)), UUID.fromString(rs.getString(1)),
+                        rs.getString(5).equals("true"), rs.getString(9).equals("true"));
                 userMap.put(UUID.fromString(rs.getString(1)), user);
 
             }

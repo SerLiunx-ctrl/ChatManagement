@@ -5,7 +5,6 @@ import me.serliunx.chatmanagement.enums.DefaultValue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
 
 /**
@@ -23,6 +22,7 @@ public final class User{
     private final UUID uuid;
     private UUID anotherUUID;
     private boolean pmStatus;
+    private boolean chatStatus;
 
     /**
      * 默认构造器
@@ -37,7 +37,7 @@ public final class User{
      * @param pmStatus 私聊的状态.
      */
     public User(String prefix, String suffix, List<String> prefixHolo, List<String> suffixHolo, List<String> textHolo,
-                ChatType chatType, UUID uuid, boolean pmStatus) {
+                ChatType chatType, UUID uuid, boolean pmStatus, boolean chatStatus) {
         this.prefix = prefix;
         this.suffix = suffix;
         this.prefixHolo = prefixHolo;
@@ -46,6 +46,7 @@ public final class User{
         this.chatType = chatType;
         this.uuid = uuid;
         this.pmStatus = pmStatus;
+        this.chatStatus = chatStatus;
         groups = new HashMap<>();
     }
 
@@ -58,21 +59,29 @@ public final class User{
      * @param uuid 玩家自己的UUID, 该实体唯一标识符
      * @param pmStatus 私聊的状态.
      */
-    public User(String prefix, String suffix, ChatType chatType, UUID uuid, boolean pmStatus) {
+    public User(String prefix, String suffix, ChatType chatType, UUID uuid, boolean pmStatus, boolean chatStatus) {
         this.prefix = prefix;
         this.suffix = suffix;
         this.chatType = chatType;
         this.uuid = uuid;
         this.pmStatus = pmStatus;
+        this.chatStatus = chatStatus;
         groups = new HashMap<>();
     }
 
+    /**
+     * 单一属性{@link UUID} 构造器
+     * <p>
+     * 用于新建一条用户记录.
+     * @param uuid 用户UUID
+     */
     public User(UUID uuid){
         prefix = DefaultValue.PREFIX.getValue();
         suffix = DefaultValue.SUFFIX.getValue();
         chatType = ChatType.DEFAULT;
         this.uuid = uuid;
         pmStatus = true;
+        chatStatus = true;
         groups = new HashMap<>();
     }
 
@@ -213,6 +222,22 @@ public final class User{
      */
     public void setPmStatus(boolean pmStatus) {
         this.pmStatus = pmStatus;
+    }
+
+    /**
+     * 获取玩家的聊天状态
+     * @return 玩家是否开启了聊天.
+     */
+    public boolean getChatStatus() {
+        return chatStatus;
+    }
+
+    /**
+     * 设置玩家的聊天状态
+     * @param chatStatus 状态
+     */
+    public void setChatStatus(boolean chatStatus) {
+        this.chatStatus = chatStatus;
     }
 
     /**

@@ -26,6 +26,10 @@ public class PrivateMessageCommand extends Command {
             switchPmstatus(player, user);
             return true;
         }
+        if(!user.isPmStatus()){
+            ChatManagement.getInstance().getLanguage().getSingleLine("privatemessage_selfoff");
+            return false;
+        }
         Player target = Bukkit.getPlayer(arguments[1]);
         if(target != null && target.isOnline()){
             if(target.getName().equals(player.getName())){
