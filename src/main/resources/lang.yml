@@ -21,6 +21,7 @@ sql_converter_done: "&a成功转换了 &e{0} &a条玩家数据."
 #
 privatemessage_switch: "&e私聊状态以切换: &r{0}"
 privatemessage_cannnotpmyou: "&c你不能私聊你自己!"
+privatemessage_selfoff: "&c你的私聊状态为关闭状态, 无法对其他玩家发起私聊. 可以使用/cm pm 开启私聊"
 privatemessage_found: "&a私聊对象以设置为玩家: &d{0} &a, 聊天栏中输入 &b{1} &a可快速退出私聊."
 privatemessage_off: "&c对方私聊已关闭, 你无法向其发送私聊."
 privatemessage_notonline: "&c该玩家不在线!"
