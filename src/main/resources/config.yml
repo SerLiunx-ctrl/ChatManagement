@@ -23,10 +23,12 @@ private_message:
   exit_text: "exit"
   #过滤器, 是否要过滤私聊文字.
   filter: true
+  #是否允许在私聊中使用颜色代码, 前提是发送方有权限.
+  color_text: true
   #私聊格式:
   #{player_name} - 玩家名称, {message} - 文本
-  format_receive: "&d&l[私聊] &a玩家: &e{player_name} &a对你说: &2{message}"
-  format_send: "&d&l[私聊] &a你对玩家 &e{player_name} &a说: &3{message}"
+  format_receive: "&d&l[私聊] &a玩家: &e{sender_name} &a对你说: &2{message}"
+  format_send: "&d&l[私聊] &a你对玩家 &e{receiver_name} &a说: &3{message}"
 
 #bossbar相关设置
 bossBar:
