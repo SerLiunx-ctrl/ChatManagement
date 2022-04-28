@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class UserManager {
-    private Map<UUID, User> userMap = new HashMap<>();;
+    private Map<UUID, User> userMap = new HashMap<>();
 
     public UserManager(){
-        loadPlayers();
+        loadUsers();
     }
 
     /**
@@ -46,18 +46,29 @@ public class UserManager {
     /**
      * 从数据库中 {@link DriverType} 重载所有用户, 首先会清空 userMap 中的.
      */
-    private void loadPlayers(){
+    private void loadUsers(){
         userMap.clear();
         userMap = ChatManagement.getInstance().getSqlManager().loadPlayers();
         ChatManagement.getInstance().getLogger().info("loaded " + userMap.size() + " players");
     }
 
+    /**
+     * 快速获取一个用户, 用于快速添加用户
+     * <p>
+     * 返回的用户没有设置任何属性.
+     * @param player 玩家
+     * @return 一个新用户
+     */
+    @Deprecated
     public User fromPlayer(Player player){
         return new User(player.getUniqueId());
     }
 
+    /**
+     * 获取所有从数据库中载入的用户
+     * @return 用户
+     */
     public List<User> getUsers(){
         return new ArrayList<>(userMap.values());
     }
-
 }
