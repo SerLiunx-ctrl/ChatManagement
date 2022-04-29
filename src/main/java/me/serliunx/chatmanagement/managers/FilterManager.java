@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
 
 public class FilterManager {
@@ -37,6 +36,10 @@ public class FilterManager {
         return filters;
     }
 
+    public String filter(@NotNull Player player, @NotNull String rawText){
+        return filter(ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId()), rawText);
+    }
+
     public String filter(@NotNull User user, @NotNull String rawText){
         Map<Filter,List<String>> filterListMap = new HashMap<>();
         Player player = user.getPlayer();
@@ -46,8 +49,8 @@ public class FilterManager {
             if(!filter.isEnable()) continue;
             if(filter.getPermission() == null) continue;
             if(filter.getPermission().equals("")) continue;
-            if(user.hasPermission(filter.getPermission())) continue;
-            filterListMap.put(filter, Collections.emptyList());
+            if(player.hasPermission(filter.getPermission())) continue;
+            filterListMap.put(filter, new ArrayList<>());
 
             for(String value:filter.getValues()){
                 if(rawText.contains(value)){

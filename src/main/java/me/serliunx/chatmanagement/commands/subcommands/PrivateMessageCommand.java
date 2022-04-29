@@ -39,9 +39,9 @@ public class PrivateMessageCommand extends Command {
             }
             User targetUser = ChatManagement.getInstance().getUserManager().getUser(target.getUniqueId());
             if(targetUser.isPmStatus()){
-                user.setAnotherUUID(player.getUniqueId());
+                user.setAnotherUUID(targetUser.getUuid());
                 sender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("privatemessage_found")
-                        .replace("{0}", player.getName()).replace("{1}",ChatManagement.getInstance().getConfigManager()
+                        .replace("{0}", target.getName()).replace("{1}",ChatManagement.getInstance().getConfigManager()
                                 .getByConfigName(YamlFile.YAML_MAIN.getValue()).getConfiguration()
                                 .getString("private_message.exit_text","exit")));
                 return true;

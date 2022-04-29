@@ -7,9 +7,11 @@ import me.serliunx.chatmanagement.controllers.types.*;
 import me.serliunx.chatmanagement.database.entities.Format;
 import me.serliunx.chatmanagement.database.entities.User;
 import me.serliunx.chatmanagement.enums.ChatType;
+import me.serliunx.chatmanagement.enums.YamlFile;
 import me.serliunx.chatmanagement.events.player.AdvanceChatEvent;
 import me.serliunx.chatmanagement.events.player.PrivateMessageEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,11 +20,16 @@ import java.util.*;
 public class ControllerManager {
 
     private final AbstractController normal,actionbar,bossbar;
+    private final FileConfiguration config;
+    private final boolean publicFilter,pmFilter;
 
     public ControllerManager(){
         normal = new Normal();
         actionbar = new ActionBar();
         bossbar = new BossBar();
+        config = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue()).getConfiguration();
+        publicFilter = config.getBoolean("filter.enable",true);
+        pmFilter = config.getBoolean("filter.enable_pm",true);
     }
 
     /**
@@ -61,10 +68,16 @@ public class ControllerManager {
         Player targetPlayer = Bukkit.getPlayer(user.getAnotherUUID());
         if(targetPlayer == null)
             return true;
-        User targetUser = ChatManagement.getInstance().getUserManager().getUser(user.getAnotherUUID());
+        User targetUser = ChatManagement.getInstance().getUserManager().getUser(targetPlayer.getUniqueId());
+        //检测是否主动退出私聊
+        if(text.equals(config.getString("private_message.exit_text","exit"))){
+            player.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("privatemessage_exit"));
+            user.setAnotherUUID(null);
+            return true;
+        }
 
         //检测对方是否中途关闭了私聊.
-        if(targetUser.isPmStatus()){
+        if(!targetUser.isPmStatus()){
             user.setAnotherUUID(null);
             player.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("privatemessage_off"));
             return true;
@@ -74,6 +87,7 @@ public class ControllerManager {
         Bukkit.getPluginManager().callEvent(privateMessageEvent);
         if(privateMessageEvent.isCancelled()) return showPublic(format, text, player);
 
+        text = pmFilter ? ChatManagement.getInstance().getFilterManager().filter(user,text) : text;
         matchController(format).showPrivateMessage(format.getChatType(),text,player,targetPlayer);
         return true;
     }
@@ -84,7 +98,9 @@ public class ControllerManager {
         Bukkit.getPluginManager().callEvent(advanceChatEvent);
 
         if(advanceChatEvent.isCancelled()) return false;
-        matchController(format).showMessage(advanceChatEvent.getMessage(), player, advanceChatEvent.getFormat(), advanceChatEvent.getRecipients());
+        String eventString = publicFilter ? ChatManagement.getInstance().getFilterManager()
+                .filter(player,advanceChatEvent.getMessage()) : advanceChatEvent.getMessage();
+        matchController(format).showMessage(eventString, player, advanceChatEvent.getFormat(), advanceChatEvent.getRecipients());
         return true;
     }
 
