@@ -45,7 +45,35 @@ public class BossBarUtils {
         }.runTaskTimer(ChatManagement.getInstance(),0, period);
     }
 
-    public static void showText(){
+    /**
+     * 使用BossBar显示文字
+     *
+     * @param player 显示对象
+     * @param text 显示文本
+     * @param period 执行间隔
+     * @param maxTicks 最大执行时间, tick.
+     */
+    public static void showText(Player player, String text, int period, int maxTicks){
+        new BukkitRunnable(){
+            int ticks = 0;
+            boolean done = false;
 
+            final BossBar bar = Bukkit.createBossBar(text, BarColor.GREEN, BarStyle.SOLID);
+
+            @Override
+            public void run(){
+                if(done){
+                    bar.setVisible(false);
+                    return;
+                }
+                bar.addPlayer(player);
+                bar.setProgress(1 - (double) ticks / maxTicks);
+                bar.setVisible(true);
+                ticks++;
+                if(ticks >= maxTicks)
+                    done = true;
+
+            }
+        }.runTaskTimer(ChatManagement.getInstance(),0, period);
     }
 }
