@@ -143,8 +143,9 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
         if (commandSender instanceof Player && cooldownProvider.isOnCooldown(commandSender)) {
             Duration remainingTime = cooldownProvider.getRemainingTime(commandSender);
-            String formattedTime = TimeUtils.formatDuration("&a%hours% : %minutes% : %seconds%", remainingTime);
-            commandSender.sendMessage(StringUtils.Color(formattedTime));
+            String formattedTime = TimeUtils.formatDuration("{seconds}", remainingTime);
+            commandSender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("in_cooldown")
+                    .replace("{seconds}", formattedTime));
             return true;
         }
         return false;

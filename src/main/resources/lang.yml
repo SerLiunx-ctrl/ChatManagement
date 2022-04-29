@@ -1,24 +1,22 @@
+#Language for command
 command_no_permission: "&c权限不足! {0}"
-#
 command_player_not_found: "&c未找到该玩家: &e{0}"
-#
 command_prefix_set: "&a成功将玩家&r {0} &r&a的前缀成功设置为:&r &7[ {1} &r&7]"
 command_suffix_set: "&a成功将玩家&r {0} &r&a的后缀成功设置为:&r &7[ {1} &r&7]"
-#
 command_prefixHolo_set: "&a成功将玩家&r {0} &r&2的前缀悬浮文字成功设置为:"
 command_prefixHolo_clear: "&a成功清空玩家 &r {0} &a的前缀悬浮文字, 将会显示默认的悬浮文字."
-#
 command_suffixHolo_set: "&a成功将玩家&r {0} &r&2的后缀悬浮文字成功设置为:"
 command_suffixHolo_clear: "&a成功清空玩家 &r {0} &a的后缀悬浮文字, 将会显示默认的悬浮文字."
-#
 command_textHolo_set: "&a成功将玩家&r {0} &r&2的聊天文本悬浮文字成功设置为:"
 command_textHolo_clear: "&a成功清空玩家 &r {0} &a的聊天文本悬浮文字, 将会显示默认的悬浮文字."
-#
+
+#Language for sql
 sql_error_maynotsave: "&c数据库连接出错! 将无法保存和读取数据, 请马上检查数据库设置."
 sql_converter_notfound: "&c错误! 请重新选择你的目标数据库!"
 sql_converter_failed: "&c数据库转换出错! 请检查配置文件中的sql设置条目!"
 sql_converter_done: "&a成功转换了 &e{0} &a条玩家数据."
-#
+
+#Language for private message
 privatemessage_switch: "&e私聊状态以切换: &r{0}"
 privatemessage_exit: "&a已退出对其的私聊!"
 privatemessage_cannnotpmyou: "&c你不能私聊你自己!"
@@ -26,8 +24,12 @@ privatemessage_selfoff: "&c你的私聊状态为关闭状态, 无法对其他玩
 privatemessage_found: "&a私聊对象以设置为玩家: &d{0} &a, 聊天栏中输入 &b{1} &a可快速退出私聊."
 privatemessage_off: "&c对方私聊已关闭, 你无法向其发送私聊."
 privatemessage_notonline: "&c该玩家不在线!"
-#
+
+#Language for placeHolder
 placeholder_enable: "&a启用"
 placeholder_disable: "&c禁用"
 placeholder_default: "&f默认"
+
+#Language for cooldown
+in_cooldown: "&c太快了! 等待 &e{seconds} &c秒后再试试吧."
 

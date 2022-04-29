@@ -3,31 +3,18 @@ package me.serliunx.chatmanagement.managers;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.lang.NotImplementedException;
 
 /**
- * Provides various cooldown features.
- *
- * @param <T> The type that can have this cooldown
+ * 冷却类, 给类提供了冷却时间的功能.
+ * @param <T> 可以冷却的类.
  */
 public class CooldownProvider<T> {
 
     private final Map<T, Duration> cooldownTimes = new HashMap<>();
-    private final String name; // Required for database support
     private final Duration duration;
-    private final boolean persistent; // Required for database support
 
-    /**
-     * The default constructor.
-     *
-     * @param name          The name of this CooldownProvider in the database
-     * @param duration      The duration which cooldowns from this provider have.
-     * @param persistent    True if the cooldowns of this provider should be saved to the database
-     */
-    private CooldownProvider(String name, Duration duration, boolean persistent) {
-        this.name = null;
+    private CooldownProvider(Duration duration) {
         this.duration = duration;
-        this.persistent = persistent;
     }
 
     /**
@@ -41,11 +28,10 @@ public class CooldownProvider<T> {
     }
 
     /**
-     * Returns the remaining duration of the cooldown for the provided entity.
-     * ZERO if there is no cooldown.
+     * 获取实体剩余的冷却时间,没有则返回0.
      *
-     * @param t The entity which should be checked
-     * @return  The duration of the cooldown, can be ZERO
+     * @param t 实例
+     * @return  剩余时间.
      */
     public Duration getRemainingTime(T t) {
         if (!isOnCooldown(t)) return Duration.ZERO;
@@ -54,39 +40,23 @@ public class CooldownProvider<T> {
     }
 
     /**
-     * Reset the cooldown of the specified entity with the duration of this CooldownProvider.
-     * {@link CooldownProvider#isOnCooldown(Object)} will return true after this.
+     * 使用{@link CooldownProvider} 的持续时间重置指定实体的冷却时间。
+     * 在方法 {@link CooldownProvider#isOnCooldown(Object)} 之前使用.
      *
-     * @param t The entity which should be checked
+     * @param t 实体
      */
     public void applyCooldown(T t) {
         cooldownTimes.put(t, duration.plusMillis(System.currentTimeMillis()));
     }
 
     /**
-     * Creates a new CooldownProvider and returns it.
-     * It will have the specified cooldown duration.
+     * 创建一个冷却实例并返回.
      *
-     * @param duration The duration of the new cooldown
-     * @param <T>      The type that can have this cooldown
-     * @return         The new CooldownProvider
+     * @param duration 时间
+     * @param <T>      类名
+     * @return      冷却实例
      */
     public static <T> CooldownProvider<T> newInstance(Duration duration) {
-        return new CooldownProvider<>(null, duration, false);
+        return new CooldownProvider<>(duration);
     }
-
-    /**
-     * Creates a new CooldownProvider and returns it.
-     * It will have the specified cooldown duration.
-     *
-     * @param name     The name of this CooldownProvider in the database
-     * @param duration The duration of the new cooldown
-     * @param <T>      The type that can have this cooldown
-     * @return         The new CooldownProvider
-     */
-    public static <T> CooldownProvider<T> newPersistentInstance(String name, Duration duration) {
-        throw new NotImplementedException();
-        // return new CooldownManager<>(name, duration, true);
-    }
-
 }
