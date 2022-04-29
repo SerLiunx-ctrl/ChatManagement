@@ -1,7 +1,7 @@
 package me.serliunx.chatmanagement.listener;
 
 import me.serliunx.chatmanagement.ChatManagement;
-import me.serliunx.chatmanagement.database.entities.User;
+import me.serliunx.chatmanagement.database.entity.User;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

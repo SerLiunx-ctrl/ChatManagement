@@ -1,12 +1,12 @@
 package me.serliunx.chatmanagement;
 
-import me.serliunx.chatmanagement.commands.Commands;
-import me.serliunx.chatmanagement.configs.SQL;
+import me.serliunx.chatmanagement.command.Commands;
+import me.serliunx.chatmanagement.config.SQL;
 import me.serliunx.chatmanagement.database.Converter;
 import me.serliunx.chatmanagement.listener.PlayerListener;
-import me.serliunx.chatmanagement.managers.*;
-import me.serliunx.chatmanagement.placeholders.Placeholders;
-import me.serliunx.chatmanagement.utils.Language;
+import me.serliunx.chatmanagement.manager.*;
+import me.serliunx.chatmanagement.placeholder.Placeholders;
+import me.serliunx.chatmanagement.util.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.SQLException;

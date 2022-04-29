@@ -1,10 +1,10 @@
 package me.serliunx.chatmanagement.database;
 
 import me.serliunx.chatmanagement.ChatManagement;
-import me.serliunx.chatmanagement.configs.SQL;
-import me.serliunx.chatmanagement.database.entities.User;
+import me.serliunx.chatmanagement.config.SQL;
+import me.serliunx.chatmanagement.database.entity.User;
 import me.serliunx.chatmanagement.enums.DriverType;
-import me.serliunx.chatmanagement.managers.SQLManager;
+import me.serliunx.chatmanagement.manager.SQLManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import java.io.File;
