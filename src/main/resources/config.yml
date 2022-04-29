@@ -29,6 +29,15 @@ private_message:
   #{player_name} - 玩家名称, {message} - 文本
   format_receive: "&d&l[私聊] &a玩家: &e{sender_name} &a对你说: &2{message}"
   format_send: "&d&l[私聊] &a你对玩家 &e{receiver_name} &a说: &3{message}"
+  #私聊文本悬浮文字
+  #此处无法使用任何he
+  text_holo:
+    - ""
+    - ""
+  #设置悬浮文字的点击效果.
+  #默认执行指令以下指令: {sender_name} - 发送方的ID.
+  #功能: 将发送方设置为私聊对象.
+  holo_command: "/chatm pm {sender_name}"
 
 #bossbar相关设置
 bossBar:

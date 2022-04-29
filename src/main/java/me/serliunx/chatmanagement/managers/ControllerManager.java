@@ -1,6 +1,7 @@
 package me.serliunx.chatmanagement.managers;
 
 import me.serliunx.chatmanagement.ChatManagement;
+import me.serliunx.chatmanagement.controllers.AbstractController;
 import me.serliunx.chatmanagement.controllers.Controller;
 import me.serliunx.chatmanagement.controllers.types.*;
 import me.serliunx.chatmanagement.database.entities.Format;
@@ -11,12 +12,12 @@ import me.serliunx.chatmanagement.events.player.PrivateMessageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class ControllerManager {
 
-    private final Controller normal,actionbar,bossbar;
+    private final AbstractController normal,actionbar,bossbar;
 
     public ControllerManager(){
         normal = new Normal();
@@ -29,7 +30,7 @@ public class ControllerManager {
      * @param format 格式组
      * @return 返回一个控制器, Normal, ActionBar, BossBar {@link ChatType}
      */
-    public @NotNull Controller matchController(@NotNull Format format){
+    public @NotNull AbstractController matchController(@NotNull Format format){
         switch (format.getChatType()){
             case ACTION_BAR:
                 return actionbar;
@@ -73,19 +74,17 @@ public class ControllerManager {
         Bukkit.getPluginManager().callEvent(privateMessageEvent);
         if(privateMessageEvent.isCancelled()) return showPublic(format, text, player);
 
-        matchController(format).showPrivateMessage(privateMessageEvent.getMessage(), user,
-                ChatManagement.getInstance().getUserManager().getUser(privateMessageEvent.getTargetPlayer().getUniqueId()));
+        matchController(format).showPrivateMessage(format.getChatType(),text,player,targetPlayer);
         return true;
     }
 
     private boolean showPublic(Format format, String text, Player player){
-        User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
-        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        Set<Player> players = new HashSet<>(Bukkit.getOnlinePlayers());
         AdvanceChatEvent advanceChatEvent = new AdvanceChatEvent(true, player, format, text, players);
         Bukkit.getPluginManager().callEvent(advanceChatEvent);
 
         if(advanceChatEvent.isCancelled()) return false;
-        matchController(format).show(advanceChatEvent.getMessage(), user, advanceChatEvent.getFormat());
+        matchController(format).showMessage(advanceChatEvent.getMessage(), player, advanceChatEvent.getFormat(), advanceChatEvent.getRecipients());
         return true;
     }
 

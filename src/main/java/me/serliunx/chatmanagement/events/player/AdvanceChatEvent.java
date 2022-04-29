@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import java.util.List;
+import java.util.Set;
 
 public class AdvanceChatEvent extends CPlayerEvent implements Cancellable {
 
@@ -13,10 +13,10 @@ public class AdvanceChatEvent extends CPlayerEvent implements Cancellable {
     private boolean cancelled = false;
     private Format format;
     private String message;
-    private final List<Player> recipients;
+    private final Set<Player> recipients;
 
     public AdvanceChatEvent(final boolean async, @NotNull Player player, @NotNull Format format, @NotNull String message,
-                            List<Player> recipients){
+                            Set<Player> recipients){
         super(player, async);
         this.format = format;
         this.message = message;
@@ -84,7 +84,7 @@ public class AdvanceChatEvent extends CPlayerEvent implements Cancellable {
     }
 
     @NotNull
-    public List<Player> getRecipients(){
+    public Set<Player> getRecipients(){
         return recipients;
     }
 }

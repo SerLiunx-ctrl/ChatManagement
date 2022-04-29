@@ -1,25 +1,35 @@
 package me.serliunx.chatmanagement.controllers.types;
 
-import me.serliunx.chatmanagement.controllers.Controller;
+import me.serliunx.chatmanagement.ChatManagement;
+import me.serliunx.chatmanagement.controllers.AbstractController;
 import me.serliunx.chatmanagement.database.entities.Format;
-import me.serliunx.chatmanagement.database.entities.User;
+import me.serliunx.chatmanagement.enums.YamlFile;
 import me.serliunx.chatmanagement.placeholders.Placeholders;
 import me.serliunx.chatmanagement.utils.StringUtils;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import java.util.Set;
 
-public final class Normal implements Controller {
+public final class Normal extends AbstractController {
+
+    public Normal() {
+        super(ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
+                        .getConfiguration().getString("private_message.format_receive", "error"),
+                ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
+                        .getConfiguration().getString("private_message.format_send", "error"),
+                ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
+                        .getConfiguration().getBoolean("private_message.color_text", true));
+    }
 
     @Override
-    public void show(String text, User user, Format format) {
+    public void showMessage(@NotNull String text, Player player, Format format, Set<Player> recipients) {
         StringBuilder prefix_holo = new StringBuilder();
         StringBuilder suffix_holo = new StringBuilder();
         StringBuilder text_holo = new StringBuilder();
 
-        Player player = user.getPlayer();
         if(format.getPrefixHolo() != null){
             for(int i = 0;i < format.getPrefixHolo().size(); i++){
                 if(i == format.getPrefixHolo().size() - 1)
@@ -61,12 +71,7 @@ public final class Normal implements Controller {
         suffix.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tSuffix_holo));
         tText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tText_holo));
 
-        for(Player p: Bukkit.getOnlinePlayers())
+        for(Player p: recipients)
             p.spigot().sendMessage(prefix, tText, suffix);
-    }
-
-    @Override
-    public void showPrivateMessage(String text, User user, User target) {
-
     }
 }

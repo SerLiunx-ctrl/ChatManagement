@@ -1,21 +1,20 @@
 package me.serliunx.chatmanagement.controllers;
 
 import me.serliunx.chatmanagement.database.entities.Format;
-import me.serliunx.chatmanagement.database.entities.User;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import java.util.Set;
 
 public interface Controller {
 
     /**
-     * 发送聊天信息给在线玩家
-     * @param user 聊天的发送方
-     * @param format 格式
+     * <p>
+     * 向指定玩家集合{@link Set} 展示文本信息.
+     * <p>
+     * @param text 文本信息
+     * @param player 玩家: 发送方
+     * @param format 格式 {@link Format}
+     * @param recipients 接受方
      */
-    void show(String text, User user, Format format);
-
-    /**
-     * 发送私密信息
-     * @param user 发送方
-     * @param target 接受方
-     */
-    void showPrivateMessage(String text, User user, User target);
+    void showMessage(@NotNull String text, Player player, Format format, Set<Player> recipients);
 }
