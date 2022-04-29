@@ -3,6 +3,7 @@ package me.serliunx.chatmanagement.commands.subcommands;
 import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.commands.Command;
 import me.serliunx.chatmanagement.database.entities.User;
+import me.serliunx.chatmanagement.enums.YamlFile;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -39,6 +40,10 @@ public class PrivateMessageCommand extends Command {
             User targetUser = ChatManagement.getInstance().getUserManager().getUser(target.getUniqueId());
             if(targetUser.isPmStatus()){
                 user.setAnotherUUID(player.getUniqueId());
+                sender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("privatemessage_found")
+                        .replace("{0}", player.getName()).replace("{1}",ChatManagement.getInstance().getConfigManager()
+                                .getByConfigName(YamlFile.YAML_MAIN.getValue()).getConfiguration()
+                                .getString("private_message.exit_text","exit")));
                 return true;
             }
             sender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("privatemessage_off"));
