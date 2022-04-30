@@ -97,4 +97,8 @@ public final class FormatManager {
         }
         ChatManagement.getInstance().getLogger().info("loaded " + formatMap.size() + " formats.");
     }
+
+    public Map<String, Format> getFormatMap() {
+        return formatMap;
+    }
 }
