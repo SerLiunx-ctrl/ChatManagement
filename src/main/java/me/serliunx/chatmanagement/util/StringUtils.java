@@ -2,8 +2,13 @@ package me.serliunx.chatmanagement.util;
 
 import me.serliunx.chatmanagement.enums.Permission;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,5 +52,24 @@ public class StringUtils {
             match = pattern.matcher(rawText);
         }
         return rawText;
+    }
+
+    /**
+     * 返回一个文本组件
+     *
+     * @param text 文本
+     * @param holo 悬浮文字
+     * @return 文本组件
+     */
+    public static TextComponent newTextComponent(@NotNull String text, @Nullable List<String> holo){
+        TextComponent textComponent = new TextComponent(Color(text));
+        StringBuilder stringBuilder = new StringBuilder();
+        if(holo != null)
+            for(int i = 0; i < holo.size(); i++){
+                stringBuilder.append(i == holo.size() - 1 ? holo.get(i) : holo.get(i) + "\n");
+            }
+
+        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Color(stringBuilder.toString()))));
+        return textComponent;
     }
 }
