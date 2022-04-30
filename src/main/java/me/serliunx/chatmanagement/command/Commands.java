@@ -8,4 +8,5 @@ public class Commands {
     public PlayerCommand playerCommand = new PlayerCommand();
     public PrivateMessageCommand privateMessageCommand = new PrivateMessageCommand();
     public ConverterCommand converterCommand = new ConverterCommand();
+    public ChatCommand chatCommand = new ChatCommand();
 }

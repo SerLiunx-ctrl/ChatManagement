@@ -49,3 +49,7 @@ converter:
   description: "&a数据库转换工具, 从当前数据库转换到指定数据库."
   syntax: "&e/chatm converter MYSQL或SQLITE"
   enable: true
+chat:
+  description: "&a开关你的聊天. 关闭后,你无法发送文字也无法看到其他玩家的文字."
+  syntax: "&e/chatm chat"
+  enable: true

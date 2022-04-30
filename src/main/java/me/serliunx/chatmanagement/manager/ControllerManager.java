@@ -14,7 +14,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
 
 public class ControllerManager {
@@ -56,11 +55,12 @@ public class ControllerManager {
     public boolean showMessage(@NotNull String text, @NotNull Player player){
         Format format = ChatManagement.getInstance().getFormatManager().matchPlayerFormat(player);
         User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
-        if(user == null)
-            return false;
-        if(isInPm(user))
-            return showPm(format, text, player);
-        return showPublic(format, text, player);
+        if(!user.getChatStatus()){
+            player.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("chat_off"));
+            return true;
+        }
+
+        return isInPm(user) ? showPm(format, text, player) : showPublic(format, text, player);
     }
 
     private boolean showPm(Format format, String text, Player player){
@@ -93,8 +93,14 @@ public class ControllerManager {
     }
 
     private boolean showPublic(Format format, String text, Player player){
-        Set<Player> players = new HashSet<>(Bukkit.getOnlinePlayers());
-        AdvanceChatEvent advanceChatEvent = new AdvanceChatEvent(true, player, format, text, players);
+        Set<Player> usersChatOn = new HashSet<>();
+        for(Player p:Bukkit.getOnlinePlayers()){
+            User u = ChatManagement.getInstance().getUserManager().getUser(p.getUniqueId());
+            if(u != null && u.getChatStatus())
+                usersChatOn.add(p);
+        }
+
+        AdvanceChatEvent advanceChatEvent = new AdvanceChatEvent(true, player, format, text, usersChatOn);
         Bukkit.getPluginManager().callEvent(advanceChatEvent);
 
         if(advanceChatEvent.isCancelled()) return false;

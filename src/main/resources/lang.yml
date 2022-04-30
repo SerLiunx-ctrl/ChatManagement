@@ -25,6 +25,10 @@ privatemessage_found: "&a私聊对象以设置为玩家: &d{0} &a, 聊天栏中�
 privatemessage_off: "&c对方私聊已关闭, 你无法向其发送私聊."
 privatemessage_notonline: "&c该玩家不在线!"
 
+#Language for chat
+chatstatus_switch: "&e聊天: &r{0}"
+chat_off: "&c你关闭了聊天, 你也无法在公屏发送任何文字消息哦."
+
 #Language for placeHolder
 placeholder_enable: "&a启用"
 placeholder_disable: "&c禁用"
