@@ -10,10 +10,12 @@ import me.serliunx.chatmanagement.enums.ChatType;
 import me.serliunx.chatmanagement.enums.YamlFile;
 import me.serliunx.chatmanagement.event.player.AdvanceChatEvent;
 import me.serliunx.chatmanagement.event.player.PrivateMessageEvent;
+import me.serliunx.chatmanagement.util.TimeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import java.time.Duration;
 import java.util.*;
 
 public class ControllerManager {
@@ -21,6 +23,8 @@ public class ControllerManager {
     private final AbstractController normal,actionbar,bossbar;
     private final FileConfiguration config;
     private final boolean publicFilter,pmFilter;
+    private final double cooldownInSeconds;
+    private CooldownProvider<Player> cooldownProvider;
 
     public ControllerManager(){
         normal = new Normal();
@@ -29,6 +33,14 @@ public class ControllerManager {
         config = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue()).getConfiguration();
         publicFilter = config.getBoolean("filter.enable",true);
         pmFilter = config.getBoolean("filter.enable_pm",true);
+        cooldownInSeconds = config.getDouble("general_message.cooldown",2.0);
+    }
+
+    public CooldownProvider<Player> getCooldownProvider() {
+        if (cooldownProvider == null) {
+            this.cooldownProvider = CooldownProvider.newInstance(Duration.ofSeconds(new Double(cooldownInSeconds).longValue()));
+        }
+        return cooldownProvider;
     }
 
     /**
@@ -53,13 +65,24 @@ public class ControllerManager {
      * @param player 玩家
      */
     public boolean showMessage(@NotNull String text, @NotNull Player player){
+        CooldownProvider<Player> cooldownProvider = getCooldownProvider();
+        if(cooldownProvider.isOnCooldown(player)){
+            Duration remainingTime = cooldownProvider.getRemainingTime(player);
+            String formattedTime = TimeUtils.formatDuration("{seconds}", remainingTime);
+            player.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("in_cooldown")
+                    .replace("{seconds}", formattedTime));
+            return true;
+        }
+
         Format format = ChatManagement.getInstance().getFormatManager().matchPlayerFormat(player);
         User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
+
         if(!user.getChatStatus()){
             player.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("chat_off"));
             return true;
         }
 
+        getCooldownProvider().applyCooldown(player);
         return isInPm(user) ? showPm(format, text, player) : showPublic(format, text, player);
     }
 

@@ -38,6 +38,11 @@ private_message:
   #功能: 将发送方设置为私聊对象.
   holo_command: "/chatm pm {sender_name}"
 
+#公屏聊天设置
+general_message:
+  #冷却时间, 玩家聊天间隔必须大于等于这个数, 否则无法发送文字. 以秒为单位
+  cooldown: 2.0
+
 #过滤器相关设置
 filter:
   #是否在非私聊状态时启用
