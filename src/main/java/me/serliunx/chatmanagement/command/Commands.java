@@ -9,4 +9,5 @@ public class Commands {
     public PrivateMessageCommand privateMessageCommand = new PrivateMessageCommand();
     public ConverterCommand converterCommand = new ConverterCommand();
     public ChatCommand chatCommand = new ChatCommand();
+    public ListCommand listCommand = new ListCommand();
 }
