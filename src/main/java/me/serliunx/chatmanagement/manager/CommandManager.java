@@ -135,7 +135,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         }
 
         if (!hasPermissions(commandSender, command)) {
-            commandSender.sendMessage(StringUtils.Color("&c no permission."));
+            commandSender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("command_no_permission"));
             return true;
         }
 
@@ -200,7 +200,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     private boolean hasPermissions(@NotNull CommandSender commandSender, Command command) {
         return commandSender.hasPermission(command.getPermission())
                 || command.getPermission().equalsIgnoreCase("")
-                || command.getPermission().equalsIgnoreCase("liunxrpg.");
+                || command.getPermission().equalsIgnoreCase("chatmanagement.");
     }
 
     private Command findExecutingCommand(Command baseCommand, String[] args) {
