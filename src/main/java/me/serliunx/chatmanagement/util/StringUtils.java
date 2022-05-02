@@ -2,6 +2,7 @@ package me.serliunx.chatmanagement.util;
 
 import me.serliunx.chatmanagement.enums.Permission;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
@@ -64,12 +65,26 @@ public class StringUtils {
     public static TextComponent newTextComponent(@NotNull String text, @Nullable List<String> holo){
         TextComponent textComponent = new TextComponent(Color(text));
         StringBuilder stringBuilder = new StringBuilder();
-        if(holo != null)
+        if(holo != null && !holo.isEmpty()){
             for(int i = 0; i < holo.size(); i++){
                 stringBuilder.append(i == holo.size() - 1 ? holo.get(i) : holo.get(i) + "\n");
             }
+            textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Color(stringBuilder.toString()))));
+        }
+        return textComponent;
+    }
 
-        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Color(stringBuilder.toString()))));
+    /**
+     * 返回一个文本组件
+     *
+     * @param text 文本
+     * @param holo 悬浮文字
+     * @param runCommand 点击后运行的指令
+     * @return 文本组件
+     */
+    public static TextComponent newTextComponent(@NotNull String text, @Nullable List<String> holo, String runCommand){
+        TextComponent textComponent = newTextComponent(text, holo);
+        textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, runCommand));
         return textComponent;
     }
 }
