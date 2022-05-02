@@ -102,6 +102,10 @@ public abstract class Command {
         this.enabled = enabled;
     }
 
+    public void setChild(int index,Command command){
+        childs.set(index, command);
+    }
+
     /**
      * 执行指令.
      *

@@ -49,41 +49,25 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     public void registerCommand(Command command) {
         if (command.isEnabled()) {
             int index = Collections.binarySearch(commands, command, Comparator.comparing(cmd -> cmd.getAliases().get(0)));
-            command = loadCommandLanguage(command);
+
+            for(String key:commandConfiguration.getKeys(false))
+                command = loadCommandLanguage(command,key);
+
             commands.add(index < 0 ? -(index + 1) : index, command);
         }
     }
 
-    public Command loadCommandLanguage(Command command){
-        for(String key:commandConfiguration.getKeys(false)){
-            if(command.getAliases().get(0).equalsIgnoreCase(key)){
-                command.setDescription(commandConfiguration.getString(key + ".description",command.getDescription()));
-                command.setEnabled(commandConfiguration.getBoolean(key + ".enable",true));
-                command.setSyntax(commandConfiguration.getString(key + ".syntax",command.getSyntax()));
-
-                if(!command.getChilds().isEmpty()){
-                    for(Command cd:command.getChilds()){
-                        cd = loadCommandLanguage(cd, key + ".childs." + cd.getAliases().get(0));
-                    }
-                }
-
-                return command;
+    public Command loadCommandLanguage(Command command, String path){
+        command.setDescription(commandConfiguration.getString(path + ".description",command.getDescription()));
+        command.setEnabled(commandConfiguration.getBoolean(path + ".enable",true));
+        command.setSyntax(commandConfiguration.getString(path + ".syntax",command.getSyntax()));
+        if(!command.getChilds().isEmpty()){
+            for(int i = 0; i < command.getChilds().size(); i++){
+                command.setChild(i, loadCommandLanguage(command.getChilds().get(i),path + ".childs."+
+                        command.getChilds().get(i).getAliases().get(0)));
             }
         }
         return command;
-    }
-
-    public Command loadCommandLanguage(Command cd, String path){
-        cd.setDescription(commandConfiguration.getString(path + ".description", cd.getDescription()));
-        cd.setEnabled(commandConfiguration.getBoolean(path + ".enable",true));
-        cd.setSyntax(commandConfiguration.getString(path + ".syntax",cd.getSyntax()));
-        if(!cd.getChilds().isEmpty()){
-            for(Command c:cd.getChilds()){
-                c = loadCommandLanguage(c,path + ".childs." + c.getAliases().get(0));
-            }
-        }
-
-        return cd;
     }
 
     public void unregisterCommand(Command command) {
