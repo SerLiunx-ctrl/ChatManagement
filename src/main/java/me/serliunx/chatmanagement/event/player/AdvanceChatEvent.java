@@ -7,19 +7,17 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
-public class AdvanceChatEvent extends CPlayerEvent implements Cancellable {
+public class AdvanceChatEvent extends ChatEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;
     private Format format;
-    private String message;
     private final Set<Player> recipients;
 
     public AdvanceChatEvent(final boolean async, @NotNull Player player, @NotNull Format format, @NotNull String message,
                             Set<Player> recipients){
-        super(player, async);
+        super(player, async,message);
         this.format = format;
-        this.message = message;
         this.recipients = recipients;
     }
 
@@ -31,25 +29,6 @@ public class AdvanceChatEvent extends CPlayerEvent implements Cancellable {
     @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
-    }
-
-    /**
-     * 获取触发该事件的玩家所说的文字. <p>
-     * 该方法返回的是已经过滤过的文字.
-     * @return 文本
-     */
-    @NotNull
-    public String getMessage(){
-        return message;
-    }
-
-    /**
-     * 重新设置触发该事件的玩家所说的文字
-     *
-     * @param message 文本
-     */
-    public void setMessage(@NotNull String message){
-        this.message = message;
     }
 
     @NotNull

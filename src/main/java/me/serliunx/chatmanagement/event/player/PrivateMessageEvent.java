@@ -5,17 +5,15 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-public class PrivateMessageEvent extends CPlayerEvent implements Cancellable {
+public class PrivateMessageEvent extends ChatEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;
-    private String message;
     private Player targetPlayer;
 
     public PrivateMessageEvent(final boolean async, @NotNull Player player, @NotNull Player targetPlayer, @NotNull String message){
-        super(player, async);
+        super(player, async, message);
         this.targetPlayer = targetPlayer;
-        this.message = message;
     }
 
     @Override
@@ -37,23 +35,6 @@ public class PrivateMessageEvent extends CPlayerEvent implements Cancellable {
     @NotNull
     public static HandlerList getHandlerList() {
         return handlers;
-    }
-
-    /**
-     * 设置触发该事件的私聊中的文本消息
-     * @param message 文本消息
-     */
-    public void setMessage(@NotNull String message){
-        this.message = message;
-    }
-
-    /**
-     * 获取触发该事件的私聊中的文本消息
-     * @return 文本消息
-     */
-    @NotNull
-    public String getMessage(){
-        return message;
     }
 
     /**
