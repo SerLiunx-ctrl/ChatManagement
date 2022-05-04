@@ -25,6 +25,7 @@ privatemessage_selfoff: "&c你的私聊状态为关闭状态, 无法对其他玩
 privatemessage_found: "&a私聊对象以设置为玩家: &d{0} &a, 聊天栏中输入 &b{1} &a可快速退出私聊."
 privatemessage_off: "&c对方私聊已关闭, 你无法向其发送私聊."
 privatemessage_notonline: "&c该玩家不在线!"
+privatemessage_targetOffline: "&c由于玩家 &e{0} &c已离线, 私聊自动关闭."
 
 #Language for console
 format_loaded: "&a从文件中载入了 &e{0} &a个格式."
