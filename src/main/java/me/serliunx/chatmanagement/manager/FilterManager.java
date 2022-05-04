@@ -4,6 +4,7 @@ import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.database.entity.Filter;
 import me.serliunx.chatmanagement.database.entity.User;
 import me.serliunx.chatmanagement.enums.YamlFile;
+import me.serliunx.chatmanagement.event.player.ChatEvent;
 import me.serliunx.chatmanagement.event.player.FiltrationEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -92,7 +93,8 @@ public class FilterManager {
                     .getString(key + ".replace-by"), filterFile.getBoolean(key + ".enable"),
                     filterFile.getStringList(key + ".values")));
         }
-        ChatManagement.getInstance().getLogger().info("loaded " + filters.size() + " filters.");
+        ChatManagement.getInstance().getLogger().info(ChatManagement.getInstance().getLanguage()
+                .getSingleLine("filter_loaded").replace("{0}", String.valueOf(filters.size())));
     }
 
     private boolean exists(String name){

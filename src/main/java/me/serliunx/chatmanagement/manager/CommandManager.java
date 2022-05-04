@@ -100,7 +100,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         }
 
         //未找到该指令
-        commandSender.sendMessage(StringUtils.Color("&c what ? haven't this command."));
+        commandSender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("command_no_exists")
+                .replace("{0}", args[0]));
         return false;
     }
 

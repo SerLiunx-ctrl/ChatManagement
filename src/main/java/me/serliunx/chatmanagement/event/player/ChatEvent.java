@@ -1,7 +1,6 @@
 package me.serliunx.chatmanagement.event.player;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ChatEvent extends CPlayerEvent {

@@ -95,7 +95,9 @@ public final class FormatManager {
                     formatFile.getStringList(key+".holo_prefix"), formatFile.getStringList(key+".holo_suffix"),
                     formatFile.getStringList(key+".holo_text")));
         }
-        ChatManagement.getInstance().getLogger().info("loaded " + formatMap.size() + " formats.");
+        ChatManagement.getInstance().getLogger().info(ChatManagement.getInstance().getLanguage()
+                .getSingleLine("format_loaded").replace("{0}", String.valueOf(formatMap.size())));
+
     }
 
     public Map<String, Format> getFormatMap() {

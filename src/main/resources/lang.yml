@@ -1,5 +1,6 @@
 #Language for command
 command_no_permission: "&c权限不足! {0}"
+command_no_exists: "&c指令不存在: &e{0}"
 command_player_not_found: "&c未找到该玩家: &e{0}"
 command_prefix_set: "&a成功将玩家&r {0} &r&a的前缀成功设置为:&r &7[ {1} &r&7]"
 command_suffix_set: "&a成功将玩家&r {0} &r&a的后缀成功设置为:&r &7[ {1} &r&7]"
@@ -24,6 +25,13 @@ privatemessage_selfoff: "&c你的私聊状态为关闭状态, 无法对其他玩
 privatemessage_found: "&a私聊对象以设置为玩家: &d{0} &a, 聊天栏中输入 &b{1} &a可快速退出私聊."
 privatemessage_off: "&c对方私聊已关闭, 你无法向其发送私聊."
 privatemessage_notonline: "&c该玩家不在线!"
+
+#Language for console
+format_loaded: "&a从文件中载入了 &e{0} &a个格式."
+filter_loaded: "&a从文件中载入了 &e{0} &a个过滤器."
+user_loaded: "&a从数据库中载入了 &e{0} &a个玩家."
+player_data_converter: "&e{0} &a条玩家数据已经转换."
+player_data_created: "&e数据中不存在该玩家: &a{0} &e, 已将该玩家添加至数据库中."
 
 #Language for chat
 chatstatus_switch: "&e聊天: &r{0}"

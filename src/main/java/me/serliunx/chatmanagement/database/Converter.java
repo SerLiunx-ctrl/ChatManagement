@@ -74,7 +74,8 @@ public final class Converter {
                 i++;
         }
 
-        ChatManagement.getInstance().getLogger().info(i + " player's data has been converted!");
+        ChatManagement.getInstance().getLogger().info(ChatManagement.getInstance().getLanguage()
+                .getSingleLine("player_data_converter").replace("{0}", String.valueOf(i)));
         if(commandSender instanceof Player)
             commandSender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("sql_converter_done")
                     .replace("{0}",String.valueOf(i)));

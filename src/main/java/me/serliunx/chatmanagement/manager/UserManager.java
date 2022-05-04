@@ -49,7 +49,9 @@ public class UserManager {
     private void loadUsers(){
         userMap.clear();
         userMap = ChatManagement.getInstance().getSqlManager().loadPlayers();
-        ChatManagement.getInstance().getLogger().info("loaded " + userMap.size() + " players");
+        ChatManagement.getInstance().getLogger().info(ChatManagement.getInstance().getLanguage()
+                .getSingleLine("user_loaded").replace("{0}", String.valueOf(userMap.size())));
+
     }
 
     /**
