@@ -53,3 +53,16 @@ chat:
   description: "&a开关你的聊天. 关闭后,你无法发送文字也无法看到其他玩家的文字."
   syntax: "&e/chatm chat"
   enable: true
+list:
+  description: "&a列出一些你想知道的信息."
+  syntax: "&e/chatm list"
+  enable: true
+  childs:
+    format:
+      description: "&a列出所有格式组."
+      syntax: "&e/chatm list format"
+      enable: true
+    fitler:
+      description: "&a列出所有过滤器"
+      syntax: "&e/chatm list filter"
+      enable: true
