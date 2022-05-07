@@ -50,8 +50,10 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         if (command.isEnabled()) {
             int index = Collections.binarySearch(commands, command, Comparator.comparing(cmd -> cmd.getAliases().get(0)));
 
-            for(String key:commandConfiguration.getKeys(false))
-                command = loadCommandLanguage(command,key);
+            for(String key:commandConfiguration.getKeys(false)){
+                if(key.equals(command.getAliases().get(0)))
+                    command = loadCommandLanguage(command,key);
+            }
 
             commands.add(index < 0 ? -(index + 1) : index, command);
         }
