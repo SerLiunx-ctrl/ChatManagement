@@ -5,6 +5,7 @@ import me.serliunx.chatmanagement.config.SQL;
 import me.serliunx.chatmanagement.database.Converter;
 import me.serliunx.chatmanagement.listener.PlayerListener;
 import me.serliunx.chatmanagement.manager.*;
+import me.serliunx.chatmanagement.placeholder.ClipPlaceholderAPI;
 import me.serliunx.chatmanagement.placeholder.Placeholders;
 import me.serliunx.chatmanagement.util.Language;
 import org.bukkit.Bukkit;
@@ -13,8 +14,7 @@ import java.sql.SQLException;
 
 public final class ChatManagement extends JavaPlugin {
 
-    private boolean usePapi;
-
+    private boolean usePapi = false;
     private static ChatManagement instance;
     private Commands commands;
     private ConfigManager configManager;
@@ -60,8 +60,10 @@ public final class ChatManagement extends JavaPlugin {
         //注册监听器.
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
 
-        //检测PlaceholderAPI
-        usePapi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            usePapi = true;
+            new ClipPlaceholderAPI().register();
+        }
 
     }
 

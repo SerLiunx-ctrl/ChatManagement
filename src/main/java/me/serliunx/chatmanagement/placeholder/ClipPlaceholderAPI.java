@@ -6,6 +6,11 @@ import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class ClipPlaceholderAPI extends PlaceholderExpansion {
+    private final ChatManagement plugin;
+
+    public ClipPlaceholderAPI() {
+        this.plugin = ChatManagement.getInstance();
+    }
 
     @Override
     public @NotNull String getIdentifier() {
@@ -29,7 +34,7 @@ public class ClipPlaceholderAPI extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player,@NotNull String params) {
-        return ChatManagement.getInstance().getPlaceholders().getPlaceHolder(player, params);
+        return plugin.getPlaceholders().getPlaceHolder(player, params);
     }
 
 }
