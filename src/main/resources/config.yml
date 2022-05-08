@@ -47,8 +47,6 @@ general_message:
 filter:
   #是否在非私聊状态时启用
   enable: true
-  #是否过滤私聊中的文字
-  enable_pm: true
 
 #bossbar相关设置
 bossBar:

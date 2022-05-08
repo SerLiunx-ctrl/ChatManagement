@@ -39,6 +39,7 @@ chatstatus_switch: "&e聊天: &r{0}"
 chat_off: "&c你关闭了聊天, 你也无法在公屏发送任何文字消息哦."
 
 #Language for placeHolder
+placeholder_unknown: "&e未知占位符"
 placeholder_enable: "&a启用"
 placeholder_disable: "&c禁用"
 placeholder_default: "&f默认"

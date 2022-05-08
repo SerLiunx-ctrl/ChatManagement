@@ -2,6 +2,8 @@ package me.serliunx.chatmanagement.placeholder;
 
 import me.serliunx.chatmanagement.ChatManagement;
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.serliunx.chatmanagement.database.entity.User;
+import me.serliunx.chatmanagement.enums.DefaultValue;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
@@ -17,10 +19,8 @@ public class Placeholders {
      * @return 替换过的文本
      */
     public static String replacePlaceHolders(String rawText, Player player){
-        if(ChatManagement.getInstance().isUsePapi())
-            return PlaceholderAPI.setPlaceholders(player, rawText);
-        else
-            return rawText;
+        return ChatManagement.getInstance().isUsePapi() ? PlaceholderAPI.setPlaceholders(player, rawText):
+                rawText;
     }
 
     /**
@@ -39,25 +39,32 @@ public class Placeholders {
 
     @Nullable
     public String getPlaceHolder(OfflinePlayer player, String param){
+        User user = ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId());
+        if(user == null) return null;
+
         switch (param) {
             case "player_prefix":
-                return ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId()).getPrefix();
+                return user.getPrefix().equals(DefaultValue.PREFIX.getValue()) ?
+                        ChatManagement.getInstance().getLanguage().getSingleLine("placeholder_default") :
+                        user.getPrefix();
             case "player_suffix":
-                return ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId()).getSuffix();
+                return user.getSuffix().equals(DefaultValue.SUFFIX.getValue()) ?
+                        ChatManagement.getInstance().getLanguage().getSingleLine("placeholder_default") :
+                        user.getSuffix();
             case "player_prefix_holo":
-                return String.join("\n", ChatManagement.getInstance().getUserManager()
-                    .getUser(player.getUniqueId()).getPrefixHolo());
+                return user.getPrefixHolo() == null ? null : String.join("\n", user.getPrefixHolo());
             case "player_suffix_holo":
-                return String.join("\n", ChatManagement.getInstance().getUserManager()
-                    .getUser(player.getUniqueId()).getSuffixHolo());
+                return user.getSuffixHolo() == null ? null : String.join("\n", user.getSuffixHolo());
             case "player_text_holo":
-                return String.join("\n", ChatManagement.getInstance().getUserManager()
-                    .getUser(player.getUniqueId()).getTextHolo());
-            case "player_pm_status":
-                return String.valueOf(ChatManagement.getInstance().getUserManager()
-                    .getUser(player.getUniqueId()).isPmStatus());
+                return user.getTextHolo() == null ? null : String.join("\n", user.getTextHolo());
+            case "player_pmstatus":
+                return user.isPmStatus() ? ChatManagement.getInstance().getLanguage().getSingleLine("placeholder_enable"):
+                        ChatManagement.getInstance().getLanguage().getSingleLine("placeholder_disable");
+            case "player_chatstatus":
+                return user.getChatStatus() ? ChatManagement.getInstance().getLanguage().getSingleLine("placeholder_enable"):
+                        ChatManagement.getInstance().getLanguage().getSingleLine("placeholder_disable");
             default:
-                return null;
+                return ChatManagement.getInstance().getLanguage().getSingleLine("placeholder_unknown");
         }
     }
 }
