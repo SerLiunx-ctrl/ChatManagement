@@ -6,7 +6,7 @@
 
     <groupId>me.serliunx.chatmanagement</groupId>
     <artifactId>ChatManagement</artifactId>
-    <version>1.0.1-dev</version>
+    <version>1.0.2-dev</version>
     <packaging>jar</packaging>
 
     <name>ChatManagement</name>
