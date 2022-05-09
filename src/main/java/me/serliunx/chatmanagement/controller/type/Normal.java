@@ -6,6 +6,7 @@ import me.serliunx.chatmanagement.database.entity.Format;
 import me.serliunx.chatmanagement.enums.YamlFile;
 import me.serliunx.chatmanagement.placeholder.Placeholders;
 import me.serliunx.chatmanagement.util.StringUtils;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -30,9 +31,12 @@ public final class Normal extends AbstractController {
         TextComponent suffix = StringUtils.newTextComponent(Placeholders.replacePlaceHolders(format.getSuffix(), player),
                 Placeholders.replaceAll(format.getSuffixHolo(), player));
 
-        TextComponent message = StringUtils.newTextComponent(text, Placeholders.replaceAll(format.getTextHolo(), player));
+        TextComponent message = (TextComponent) StringUtils.translateColorCodesToTextComponent(text, player);
+        message.setHoverEvent(StringUtils.newHoverEvent(Placeholders.replaceAll(format.getTextHolo(), player),
+                HoverEvent.Action.SHOW_TEXT));
 
         for(Player p: recipients)
             p.spigot().sendMessage(prefix, message, suffix);
     }
+
 }

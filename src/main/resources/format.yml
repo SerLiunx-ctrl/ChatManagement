@@ -40,7 +40,7 @@ vip:
   permission: "lcm.chatformat.vip"
   priority: 3
   type: NORMAL
-  prefix: "&7%player_name%:"
+  prefix: "&#CC66FF%player_name%:"
   suffix: "&b<牛逼>"
   holo_prefix:
     - "&a名称: &7%player_name%"
