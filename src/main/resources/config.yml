@@ -1,3 +1,8 @@
+#ChatManagement 通用设置
+
+#几乎所有地方都支持16进制颜色代码
+#使用例子, -> &#CC66FF
+
 #数据库相关设置
 sql:
   #数据库类型, 可选: MYSQL, SQLITE
@@ -21,13 +26,12 @@ sql:
 private_message:
   #如果在私聊中, 输入一下文字可快速退出私聊.
   exit_text: "exit"
-  #过滤器, 是否要过滤私聊文字.
-  filter: true
   #是否允许在私聊中使用颜色代码, 前提是发送方有权限: chatmanagement.player.chatcolor
   color_text: true
   #私聊格式:
-  #{player_name} - 玩家名称, {message} - 文本
+  #{sender_name} - 发送方名称
   format_receive: "&d&l[私聊] &a玩家: &e{sender_name} &a对你说: &2"
+  #{receiver_name} - 接收方名称
   format_send: "&d&l[私聊] &a你对玩家 &e{receiver_name} &a说: &3"
   #私聊文本悬浮文字
   #此处无法使用任何占位符.
@@ -47,6 +51,8 @@ general_message:
 filter:
   #是否在非私聊状态时启用
   enable: true
+  #开启私聊.
+  enable_pm: true
 
 #bossbar相关设置
 bossBar:

@@ -3,11 +3,13 @@ package me.serliunx.chatmanagement;
 import me.serliunx.chatmanagement.command.Commands;
 import me.serliunx.chatmanagement.config.SQL;
 import me.serliunx.chatmanagement.database.Converter;
+import me.serliunx.chatmanagement.database.entity.User;
 import me.serliunx.chatmanagement.listener.PlayerListener;
 import me.serliunx.chatmanagement.manager.*;
 import me.serliunx.chatmanagement.placeholder.ClipPlaceholderAPI;
 import me.serliunx.chatmanagement.placeholder.Placeholders;
 import me.serliunx.chatmanagement.util.Language;
+import me.serliunx.chatmanagement.util.Updater;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.SQLException;
@@ -28,6 +30,7 @@ public final class ChatManagement extends JavaPlugin {
     private Placeholders placeholders;
     private Language language;
     private Converter converter;
+    private Updater updater;
 
     @Override
     public void onLoad(){
@@ -56,6 +59,7 @@ public final class ChatManagement extends JavaPlugin {
         controllerManager = new ControllerManager();
         placeholders = new Placeholders();
         converter = new Converter(sql, sqlManager);
+        updater = new Updater();
 
         //注册监听器.
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
@@ -64,6 +68,9 @@ public final class ChatManagement extends JavaPlugin {
             usePapi = true;
             new ClipPlaceholderAPI().register();
         }
+
+        //热加载更新玩家数据
+        Bukkit.getOnlinePlayers().forEach(p -> getUserManager().addUser(new User(p.getUniqueId())));
 
     }
 
@@ -118,6 +125,10 @@ public final class ChatManagement extends JavaPlugin {
 
     public SQL getSql() {
         return sql;
+    }
+
+    public Updater getUpdater(){
+        return updater;
     }
 
     public boolean isUsePapi() {
