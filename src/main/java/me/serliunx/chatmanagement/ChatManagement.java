@@ -61,6 +61,9 @@ public final class ChatManagement extends JavaPlugin {
         converter = new Converter(sql, sqlManager);
         updater = new Updater();
 
+        //检测并更新config
+        updater.check();
+
         //注册监听器.
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
 
