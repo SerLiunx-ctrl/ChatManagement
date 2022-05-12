@@ -55,13 +55,16 @@ public class Updater {
     private void resetConfig(Config config, Map<String,Object> pathAndValues){
         FileConfiguration fileConfiguration = config.getConfiguration();
         //创建数据文件夹中不存在的配置
+        boolean found = false;
         for(String path: pathAndValues.keySet()){
             if(!fileConfiguration.contains(path)){
                 fileConfiguration.createSection(path);
                 fileConfiguration.set(path, pathAndValues.get(path));
-                config.save();
+                found = true;
             }
         }
+
+        if(found) config.save();
     }
 
     private void resetSection(Config config, YamlConfiguration yamlConfiguration){
@@ -72,16 +75,18 @@ public class Updater {
             String defaultValue = DefaultValue.CONFIG_SECTION.getValue();
             if(!section.startsWith(defaultValue)) break;
 
+            boolean found = false;
             for(String path:fileConfiguration.getKeys(false)){
                 StringBuilder stringBuilder = new StringBuilder(section);
                 stringBuilder.replace(0,defaultValue.length(),path);
                 if(!fileConfiguration.contains(stringBuilder.toString())){
                     fileConfiguration.createSection(stringBuilder.toString());
                     fileConfiguration.set(stringBuilder.toString(), values.get(section));
+                    found = true;
                 }
 
             }
-            config.save();
+            if(found) config.save();
         }
     }
 
