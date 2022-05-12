@@ -41,6 +41,11 @@ public final class ChatManagement extends JavaPlugin {
     public void onEnable() {
         commands = new Commands();
         configManager = new ConfigManager();
+        updater = new Updater();
+
+        //检测并更新config
+        updater.check();
+
         commandManager = new CommandManager("chatmanagement");
         //载入数据库配置
         sql = new SQL();
@@ -59,10 +64,6 @@ public final class ChatManagement extends JavaPlugin {
         controllerManager = new ControllerManager();
         placeholders = new Placeholders();
         converter = new Converter(sql, sqlManager);
-        updater = new Updater();
-
-        //检测并更新config
-        updater.check();
 
         //注册监听器.
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);

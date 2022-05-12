@@ -4,6 +4,7 @@ import me.serliunx.chatmanagement.ChatManagement;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
+import java.io.IOException;
 
 public class Config {
 
@@ -38,5 +39,13 @@ public class Config {
 
     public FileConfiguration getConfiguration(){
         return configuration;
+    }
+
+    public void save(){
+        try{
+            configuration.save(file);
+        }catch (IOException e){
+            ChatManagement.getInstance().getLogger().warning(e.toString());
+        }
     }
 }

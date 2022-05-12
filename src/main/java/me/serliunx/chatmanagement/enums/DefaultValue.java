@@ -2,6 +2,7 @@ package me.serliunx.chatmanagement.enums;
 
 public enum DefaultValue {
     PREFIX("default"),
+    CONFIG_SECTION("default"),
     SUFFIX("default");
 
     private final String value;
