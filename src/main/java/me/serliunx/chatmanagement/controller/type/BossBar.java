@@ -19,12 +19,6 @@ public final class BossBar extends AbstractController {
     private final String barColor, barStyle;
 
     public BossBar(){
-        super(ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
-                        .getConfiguration().getString("private_message.format_receive", "error"),
-                ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
-                        .getConfiguration().getString("private_message.format_send", "error"),
-                ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
-                        .getConfiguration().getBoolean("private_message.color_text", true));
         maxTicks = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
                 .getConfiguration().getInt("bossBar.timer",80);
         barColor = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
