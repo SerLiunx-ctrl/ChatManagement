@@ -9,11 +9,8 @@ import java.util.UUID;
 
 /**
  * ChatManagement API
- * 请直接使用ChatmanagementAPI.XXX
- * 需要添加你自己的过滤器请继承{@link FilterExpansion}
  */
 public class ChatManagementAPI {
-    private static ChatManagementAPI instance;
     private ChatManagementAPI(){}
 
     /**
@@ -36,11 +33,8 @@ public class ChatManagementAPI {
     @NotNull
     public static String filter(@NotNull UUID uuid, @NotNull String text){
         User user  = getUser(uuid);
+        if(user == null) return text;
         return ChatManagement.getInstance().getFilterManager().filter(user, text);
     }
 
-    @NotNull
-    public static  ChatManagementAPI getInstance() {
-        return instance;
-    }
 }

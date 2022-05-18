@@ -5,7 +5,9 @@ import me.serliunx.chatmanagement.database.entity.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -15,6 +17,12 @@ public class PlayerListener implements Listener {
 
     public PlayerListener() {
         this.instance = ChatManagement.getInstance();
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void asyncPlayerChat(AsyncPlayerChatEvent event){
+        if(instance.getControllerManager().showMessage(event.getMessage(), event.getPlayer()))
+            event.setCancelled(true);
     }
 
     @EventHandler
@@ -27,7 +35,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){
         User mainUser = instance.getUserManager().getUser(event.getPlayer().getUniqueId());
-        if(!mainUser.isPmStatus())
+        if(mainUser == null || !mainUser.isPmStatus())
             return;
 
         for(Player p:Bukkit.getOnlinePlayers()){

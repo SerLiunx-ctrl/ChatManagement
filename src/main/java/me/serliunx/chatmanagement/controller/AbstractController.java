@@ -15,10 +15,13 @@ public abstract class AbstractController implements Controller{
     private final boolean pmColor;
     private final List<String> formatHolo;
 
-    public AbstractController(String formatPmReceive, String formatPmSend, boolean pmColor) {
-        this.formatPmReceive = formatPmReceive;
-        this.formatPmSend = formatPmSend;
-        this.pmColor = pmColor;
+    public AbstractController() {
+        this.formatPmReceive = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
+                .getConfiguration().getString("private_message.format_receive", "error");
+        this.formatPmSend = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
+                .getConfiguration().getString("private_message.format_send", "error");
+        this.pmColor = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
+                .getConfiguration().getBoolean("private_message.color_text", true);
         formatHolo = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
                 .getConfiguration().getStringList("private_message.text_holo");
         holoCommand = ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())

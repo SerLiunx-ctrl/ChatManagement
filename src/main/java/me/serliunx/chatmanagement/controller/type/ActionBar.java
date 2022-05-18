@@ -15,12 +15,7 @@ import java.util.Set;
 public final class ActionBar extends AbstractController {
 
     public ActionBar() {
-        super(ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
-                        .getConfiguration().getString("private_message.format_receive", "error"),
-                ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
-                        .getConfiguration().getString("private_message.format_send", "error"),
-                ChatManagement.getInstance().getConfigManager().getByConfigName(YamlFile.YAML_MAIN.getValue())
-                        .getConfiguration().getBoolean("private_message.color_text", true));
+        super();
     }
 
     @Override
