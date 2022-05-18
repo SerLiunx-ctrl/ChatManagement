@@ -6,6 +6,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * 配置文件主类
+ * 可直接实例化
+ */
 public class Config {
 
     private final String fileName;
@@ -19,6 +23,12 @@ public class Config {
         saveDefaultConfig();
     }
 
+    /**
+     * 从磁盘中重载此配置文件
+     * <li> 请确保插件有存取文件的权限
+     * <li> 此项操作无法撤回
+     * @return 重载成功返回真, 否则返回假
+     */
     public boolean reloadConfig(){
         try{
             file = new File(pathName, fileName);
@@ -30,6 +40,11 @@ public class Config {
         }
     }
 
+    /**
+     * 将.jar中的resource文件夹中的所有.yml文件<p>
+     * 释放到插件数据文件夹中.<p>
+     * 默认不会覆盖.
+     */
     private void saveDefaultConfig() {
         file = new File(pathName,fileName);
         if(!file.exists())
@@ -37,10 +52,17 @@ public class Config {
         configuration = YamlConfiguration.loadConfiguration(file);
     }
 
+    /**
+     * 返回此配置文件的 {@link FileConfiguration}
+     * @return 可操作的 FileConfiguration
+     */
     public FileConfiguration getConfiguration(){
         return configuration;
     }
 
+    /**
+     * 将此文件保存到磁盘中
+     */
     public void save(){
         try{
             configuration.save(file);
