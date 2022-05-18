@@ -66,3 +66,7 @@ list:
       description: "&a列出所有过滤器"
       syntax: "&e/chatm list filter"
       enable: true
+about:
+  description: "&a关于本插件."
+  syntax: "&e/chatm about"
+  enable: true
