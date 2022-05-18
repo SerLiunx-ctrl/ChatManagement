@@ -45,7 +45,7 @@ public class HelpCommand extends Command {
                         return true;
                     }
                 }
-                sender.sendMessage("&cno permission!");
+                sender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("command_no_permission"));
                 return true;
             }
         }
