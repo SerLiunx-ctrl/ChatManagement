@@ -47,3 +47,11 @@ placeholder_default: "&f默认"
 #Language for cooldown
 in_cooldown: "&c太快了! 等待 &e{seconds} &c秒后再试试吧."
 
+#Language for plugin information.
+about_plugin:
+  - "&a&lChatManagement"
+  - "&e&lAuthor: &7&lSerLiunx"
+  - "&d&lGithub: SerLiunx_ctrl"
+  - "&2&lmail: serliunx@yeah.net"
+  - "&d&lWebSite: www.serliunx.com"
+
