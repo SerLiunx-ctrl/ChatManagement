@@ -22,27 +22,7 @@ public class BossBarUtils {
      * @param maxTicks 总共显示的时间
      */
     public static void showText(Player player, String text, BarColor barColor, BarStyle barStyle, int period, int maxTicks){
-        new BukkitRunnable(){
-            int ticks = 0;
-            boolean done = false;
-
-            final BossBar bar = Bukkit.createBossBar(text, barColor, barStyle);
-
-            @Override
-            public void run(){
-                if(done){
-                    bar.setVisible(false);
-                    return;
-                }
-                bar.addPlayer(player);
-                bar.setProgress(1 - (double) ticks / maxTicks);
-                bar.setVisible(true);
-                ticks++;
-                if(ticks >= maxTicks)
-                    done = true;
-
-            }
-        }.runTaskTimer(ChatManagement.getInstance(),0, period);
+        showText(player,text,barColor,barStyle,period,maxTicks,0);
     }
 
     /**
@@ -54,12 +34,26 @@ public class BossBarUtils {
      * @param maxTicks 最大执行时间, tick.
      */
     public static void showText(Player player, String text, int period, int maxTicks){
+        showText(player,text,BarColor.GREEN,BarStyle.SOLID,period,maxTicks);
+    }
+
+    /**
+     * 使用BossBar显示文字
+     *
+     * @param player 显示对象{@link Player}
+     * @param text 需要显示的文字
+     * @param barColor 颜色
+     * @param barStyle 风格
+     * @param period 刷新间隔
+     * @param maxTicks 总共显示的时间
+     * @param delay 执行延时
+     */
+    public static void showText(Player player, String text, BarColor barColor, BarStyle barStyle, int period,
+                                int maxTicks, int delay){
         new BukkitRunnable(){
             int ticks = 0;
             boolean done = false;
-
-            final BossBar bar = Bukkit.createBossBar(text, BarColor.GREEN, BarStyle.SOLID);
-
+            final BossBar bar = Bukkit.createBossBar(text, barColor, barStyle);
             @Override
             public void run(){
                 if(done){
@@ -74,6 +68,7 @@ public class BossBarUtils {
                     done = true;
 
             }
-        }.runTaskTimer(ChatManagement.getInstance(),0, period);
+        }.runTaskTimer(ChatManagement.getInstance(),delay, period);
+
     }
 }
