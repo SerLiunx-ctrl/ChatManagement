@@ -3,10 +3,6 @@ reload:
   syntax: "&e/chatm reload <参数>"
   enable: true
   childs:
-    all:
-      description: "&a重载插件所有配置."
-      syntax: "&e/chatm reload all"
-      enable: true
     lang:
       description: "&a重载 lang.yml"
       syntax: "&e/chatm reload lang"
@@ -23,7 +19,10 @@ reload:
       description: "&a重载 format.yml"
       syntax: "&e/chatm reload main"
       enable: true
-
+    command:
+      description: "&a重载 command.yml"
+      syntax: "&e/chatm reload command"
+      enable: true
 help:
   description: "&a查看帮助."
   syntax: "&e/chatm help <指令>"
@@ -62,7 +61,7 @@ list:
       description: "&a列出所有格式组."
       syntax: "&e/chatm list format"
       enable: true
-    fitler:
+    filter:
       description: "&a列出所有过滤器"
       syntax: "&e/chatm list filter"
       enable: true

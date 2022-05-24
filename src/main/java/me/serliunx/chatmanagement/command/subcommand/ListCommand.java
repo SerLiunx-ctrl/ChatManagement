@@ -1,5 +1,6 @@
 package me.serliunx.chatmanagement.command.subcommand;
 
+import me.serliunx.chatmanagement.ChatManagement;
 import me.serliunx.chatmanagement.command.Command;
 import me.serliunx.chatmanagement.command.subcommand.list.FilterList;
 import me.serliunx.chatmanagement.command.subcommand.list.FormatList;
@@ -16,7 +17,9 @@ public class ListCommand extends Command {
     public Command filterList, formatList;
 
     public ListCommand() {
-        super(Collections.singletonList("list"), "list information all you need", "/chatm list", Permission.COMMAND_ADMIN_LIST.getValue(), false, Duration.ofSeconds(2));
+        super(Collections.singletonList("list"), "list information all you need", "/chatm list",
+                Permission.COMMAND_ADMIN_LIST.getValue(), false, Duration.ofSeconds(2));
+
         formatList = new FormatList();
         filterList = new FilterList();
         addChilds(filterList,formatList);
@@ -24,17 +27,21 @@ public class ListCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String[] arguments) {
-        if(arguments.length == 1){
+        if(arguments.length != 2){
             for(Command c:getChilds()){
                 sender.sendMessage(StringUtils.Color(c.getSyntax() + " &f- " + c.getDescription()));
             }
             return false;
         }
+
         for(Command c:getChilds()){
             if(arguments[1].equalsIgnoreCase(c.getAliases().get(0))){
                 return c.execute(sender, arguments);
             }
         }
+
+        sender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("command_no_exists")
+                .replace("{0}",arguments[1]));
         return false;
     }
 
