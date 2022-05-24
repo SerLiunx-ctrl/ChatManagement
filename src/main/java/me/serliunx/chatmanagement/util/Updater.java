@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class Updater {
     private YamlConfiguration loadConfig(String fileName){
         InputStream inputStream = plugin.getResource(fileName);
         if(inputStream == null)return null;
-        Reader reader = new InputStreamReader(inputStream);
+        Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         return YamlConfiguration.loadConfiguration(reader);
     }
 
