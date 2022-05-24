@@ -10,6 +10,5 @@ public class Commands {
     public ConverterCommand converterCommand = new ConverterCommand();
     public ChatCommand chatCommand = new ChatCommand();
     public ListCommand listCommand = new ListCommand();
-    public SetCommand setCommand = new SetCommand();
     public AboutCommand aboutCommand = new AboutCommand();
 }

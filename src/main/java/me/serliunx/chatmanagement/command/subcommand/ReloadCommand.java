@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ReloadCommand extends Command {
 
-    public Command allCommand, mainCommand, languageCommand, filterCommand, formatCommand;
+    public Command allCommand, mainCommand, languageCommand, filterCommand, formatCommand, cmdCommand;
 
     public ReloadCommand() {
         super(Collections.singletonList("reload"),"reload command.","/chatm reload <target>", Permission.COMMAND_ADMIN_RELOAD.getValue(), false, Duration.ZERO);
@@ -22,7 +22,9 @@ public class ReloadCommand extends Command {
         allCommand = new AllCommand();
         filterCommand = new FilterCommand();
         formatCommand = new FormatCommand();
-        addChilds(languageCommand, mainCommand, allCommand, filterCommand, formatCommand);
+        cmdCommand = new CmdCommand();
+
+        addChilds(languageCommand, mainCommand, allCommand, filterCommand, formatCommand, cmdCommand);
     }
 
     @Override
