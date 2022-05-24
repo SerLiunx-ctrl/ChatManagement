@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import java.time.Duration;
 import java.util.*;
 
 public class StringUtils {
@@ -245,6 +246,23 @@ public class StringUtils {
                 subComponent.setColor(ChatColor.RESET);
                 break;
         }
+    }
+
+    /**
+     * 格式化时间
+     *
+     * @param format 文字
+     * @param duration 时间
+     * @return 格式化之后的文字
+     */
+    public static String formatDuration(String format, Duration duration) {
+        double hours = duration.toHours();
+        double minutes = duration.toMinutes() / 60.0;
+        double seconds = duration.toMillis() / 1000.0;
+
+        return format.replace("{hours}", String.valueOf(hours))
+                .replace("{minutes}", String.format("%.1f",minutes))
+                .replace("{seconds}", String.format("%.1f",seconds));
     }
 
 }

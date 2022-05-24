@@ -5,7 +5,6 @@ import me.serliunx.chatmanagement.command.Command;
 import me.serliunx.chatmanagement.command.Commands;
 import me.serliunx.chatmanagement.enums.YamlFile;
 import me.serliunx.chatmanagement.util.StringUtils;
-import me.serliunx.chatmanagement.util.TimeUtils;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -130,7 +129,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
         if (commandSender instanceof Player && cooldownProvider.isOnCooldown(commandSender)) {
             Duration remainingTime = cooldownProvider.getRemainingTime(commandSender);
-            String formattedTime = TimeUtils.formatDuration("{seconds}", remainingTime);
+            String formattedTime = StringUtils.formatDuration("{seconds}", remainingTime);
             commandSender.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("in_cooldown")
                     .replace("{seconds}", formattedTime));
             return true;

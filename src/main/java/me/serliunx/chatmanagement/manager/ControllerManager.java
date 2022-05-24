@@ -10,7 +10,7 @@ import me.serliunx.chatmanagement.enums.ChatType;
 import me.serliunx.chatmanagement.enums.YamlFile;
 import me.serliunx.chatmanagement.event.player.AdvanceChatEvent;
 import me.serliunx.chatmanagement.event.player.PrivateMessageEvent;
-import me.serliunx.chatmanagement.util.TimeUtils;
+import me.serliunx.chatmanagement.util.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -68,7 +68,7 @@ public class ControllerManager {
         CooldownProvider<Player> cooldownProvider = getCooldownProvider();
         if(cooldownProvider.isOnCooldown(player)){
             Duration remainingTime = cooldownProvider.getRemainingTime(player);
-            String formattedTime = TimeUtils.formatDuration("{seconds}", remainingTime);
+            String formattedTime = StringUtils.formatDuration("{seconds}", remainingTime);
             player.sendMessage(ChatManagement.getInstance().getLanguage().getSingleLine("in_cooldown")
                     .replace("{seconds}", formattedTime));
             return true;
