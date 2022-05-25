@@ -40,6 +40,24 @@ public class FilterManager {
         return filter(ChatManagement.getInstance().getUserManager().getUser(player.getUniqueId()), rawText);
     }
 
+    /**
+     * 使用本插件中的过滤功能来过滤文字<p>
+     *<li>将过滤文字中所有符合已启用的过滤器所包含的值
+     *<li>不会触发 {@link me.serliunx.chatmanagement.api.event.player.FiltrationEvent}
+     * @param rawText 需要过滤的文本
+     * @return 过滤后的文字
+     */
+    public String filter(String rawText){
+        for(Filter f: filters){
+            if(!f.isEnable()) continue;
+            for(String value: f.getValues()){
+                rawText = rawText.replace(value,f.getReplacement() == null ||
+                        f.getReplacement().equals("") ? "*":f.getReplacement());
+            }
+        }
+        return rawText;
+    }
+
     public String filter(@NotNull User user, @NotNull String rawText){
         Map<Filter,List<String>> filterListMap = new HashMap<>();
         Player player = user.getPlayer();
@@ -65,18 +83,14 @@ public class FilterManager {
 
         if(filtrationEvent.getValues() != null){
             for(String value: filtrationEvent.getValues()){
-                if(filtrationEvent.getReplacement() != null)
-                    rawText = rawText.replace(value, filtrationEvent.getReplacement());
-                else
-                    rawText = rawText.replace(value, "*");
+                rawText = rawText.replace(value, filtrationEvent.getReplacement() == null ? "*" :
+                        filtrationEvent.getReplacement());
             }
         }else {
             for(Filter f:filtrationEvent.getFilterListMap().keySet()){
                 for(String value:filtrationEvent.getFilterListMap().get(f)){
-                    if(filtrationEvent.getReplacement() != null)
-                        rawText = rawText.replace(value, filtrationEvent.getReplacement());
-                    else
-                        rawText = rawText.replace(value, f.getReplacement());
+                    rawText = rawText.replace(value, filtrationEvent.getReplacement() == null ? "*" :
+                            filtrationEvent.getReplacement());
                 }
             }
         }
@@ -97,11 +111,9 @@ public class FilterManager {
     }
 
     private boolean exists(String name){
-        if(filters.isEmpty())
-            return false;
+        if(filters.isEmpty()) return false;
         for(Filter f: filters){
-            if(f.getName().equals(name))
-                return true;
+            if(f.getName().equals(name)) return true;
         }
         return false;
     }
