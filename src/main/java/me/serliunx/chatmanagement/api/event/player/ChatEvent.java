@@ -1,4 +1,4 @@
-package me.serliunx.chatmanagement.event.player;
+package me.serliunx.chatmanagement.api.event.player;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

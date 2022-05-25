@@ -1,4 +1,4 @@
-package me.serliunx.chatmanagement.event.player;
+package me.serliunx.chatmanagement.api.event.player;
 
 import me.serliunx.chatmanagement.database.entity.Format;
 import org.bukkit.entity.Player;

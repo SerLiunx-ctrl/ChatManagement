@@ -25,7 +25,7 @@ public class ChatManagementAPI {
 
     /**
      * 使用本插件中的过滤功能来过滤文字<p>
-     * "会触发过滤器事件: {@link me.serliunx.chatmanagement.event.player.FiltrationEvent}"
+     * "会触发过滤器事件: {@link me.serliunx.chatmanagement.api.event.player.FiltrationEvent}"
      * @param uuid 用户的UUID
      * @param text 需要过滤的文本
      * @return 过滤后的文字
