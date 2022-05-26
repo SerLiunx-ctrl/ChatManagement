@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import java.time.Duration;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtils {
 
@@ -221,6 +223,7 @@ public class StringUtils {
     /**
      * 快速获取一个转换过颜色的BaseComponent
      * 支持16进制颜色代码.
+     * <li> 检查内置于插件中的权限节点
      * @param text 基础文本
      * @param player 玩家
      * @return BaseComponent
@@ -232,11 +235,46 @@ public class StringUtils {
     /**
      * 快速获取一个转换过颜色的BaseComponent
      * 支持16进制颜色代码.
+     * <li> 检查所给的权限节点
+     * @param text 基础文本
+     * @param player 玩家
+     * @param permission 权限
+     * @return BaseComponent
+     */
+    public static BaseComponent translateColorCodesToTextComponent(String text, Player player, String permission){
+        return translateColorCodesToTextComponent(text, player.hasPermission(permission));
+    }
+
+    /**
+     * 快速获取一个转换过颜色的BaseComponent
+     * 支持16进制颜色代码.
      * @param text 基础文本
      * @return BaseComponent
      */
     public static BaseComponent translateColorCodesToTextComponent(String text){
         return translateColorCodesToTextComponent(text, true);
+    }
+
+    /**
+     * 匹配特定正则表达式, 并返回所匹配到的内容
+     * @param text 源内容
+     * @param regex 表达式
+     * @return 匹配到的内容
+     */
+    public static List<String> matchRegex(String text, String regex){
+        //"#[a-fA-F0-9]{6}"
+        List<String> matched = new ArrayList<>();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+
+        while (matcher.find()){
+            String found = regex.substring(matcher.start(), matcher.end());
+            matched.add(found);
+            text = text.replace(found,"");
+            matcher = pattern.matcher(text);
+        }
+
+        return matched;
     }
 
     /**
