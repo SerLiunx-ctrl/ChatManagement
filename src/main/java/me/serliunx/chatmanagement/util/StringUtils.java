@@ -104,14 +104,7 @@ public class StringUtils {
         return new HoverEvent(action, new Text("error"));
     }
 
-    /**
-     * 快速获取一个转换过颜色的BaseComponent
-     * 支持16进制颜色代码.
-     * @param text 基础文本
-     * @param player 玩家
-     * @return BaseComponent
-     */
-    public static BaseComponent translateColorCodesToTextComponent(String text, Player player){
+    private static BaseComponent translateColorCodesToTextComponent(String text, boolean setColor){
 
         String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
         ComponentBuilder builder = new ComponentBuilder();
@@ -121,9 +114,11 @@ public class StringUtils {
                 i++;
                 if (texts[i].charAt(0) == '#'){
                     subComponent.setText(texts[i].substring(7));
-                    subComponent.setColor(net.md_5.bungee.api.ChatColor.of(texts[i].substring(0, 7)));
-                    subComponent.setColor(player.hasPermission(Permission.OTHER_PLAYER_CHATCOLOR.getValue())?
-                            net.md_5.bungee.api.ChatColor.of(texts[i].substring(0, 7)) : ChatColor.WHITE);
+                    if(setColor){
+                        subComponent.setColor(checkHexColor(texts[i].substring(0, 7)) ?
+                                net.md_5.bungee.api.ChatColor.of(texts[i].substring(0, 7)) : ChatColor.WHITE);
+                    }
+
                     builder.append(subComponent);
                 }else{
                     if (texts[i].length() > 1){
@@ -131,43 +126,9 @@ public class StringUtils {
                     }else{
                         subComponent.setText(" ");
                     }
-                    if(player.hasPermission(Permission.OTHER_PLAYER_CHATCOLOR.getValue())){
+                    if(setColor){
                         setColor(texts, i, subComponent);
                     }
-                    builder.append(subComponent);
-                }
-            }else{
-                builder.append(texts[i]);
-            }
-        }
-        return new TextComponent(builder.create());
-    }
-
-    /**
-     * 快速获取一个转换过颜色的BaseComponent
-     * 支持16进制颜色代码.
-     * @param text 基础文本
-     * @return BaseComponent
-     */
-    public static BaseComponent translateColorCodesToTextComponent(String text){
-
-        String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
-        ComponentBuilder builder = new ComponentBuilder();
-        for (int i = 0; i < texts.length; i++){
-            TextComponent subComponent = new TextComponent();
-            if (texts[i].equalsIgnoreCase("&")){
-                i++;
-                if (texts[i].charAt(0) == '#'){
-                    subComponent.setText(texts[i].substring(7));
-                    subComponent.setColor(net.md_5.bungee.api.ChatColor.of(texts[i].substring(0, 7)));
-                    builder.append(subComponent);
-                }else{
-                    if (texts[i].length() > 1){
-                        subComponent.setText(texts[i].substring(1));
-                    }else{
-                        subComponent.setText(" ");
-                    }
-                    setColor(texts, i, subComponent);
                     builder.append(subComponent);
                 }
             }else{
@@ -246,6 +207,36 @@ public class StringUtils {
                 subComponent.setColor(ChatColor.RESET);
                 break;
         }
+    }
+
+    private static boolean checkHexColor(String color){
+        try{
+            net.md_5.bungee.api.ChatColor.of(color);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    /**
+     * 快速获取一个转换过颜色的BaseComponent
+     * 支持16进制颜色代码.
+     * @param text 基础文本
+     * @param player 玩家
+     * @return BaseComponent
+     */
+    public static BaseComponent translateColorCodesToTextComponent(String text, Player player){
+        return translateColorCodesToTextComponent(text, player.hasPermission(Permission.OTHER_PLAYER_CHATCOLOR.getValue()));
+    }
+
+    /**
+     * 快速获取一个转换过颜色的BaseComponent
+     * 支持16进制颜色代码.
+     * @param text 基础文本
+     * @return BaseComponent
+     */
+    public static BaseComponent translateColorCodesToTextComponent(String text){
+        return translateColorCodesToTextComponent(text, true);
     }
 
     /**
