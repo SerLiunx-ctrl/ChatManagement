@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import java.time.Duration;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class StringUtils {
 
@@ -106,7 +104,7 @@ public class StringUtils {
         return new HoverEvent(action, new Text("error"));
     }
 
-    private static BaseComponent translateColorCodesToTextComponent(String text, boolean setColor){
+    private static BaseComponent transColor(String text, boolean setColor){
 
         String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
         ComponentBuilder builder = new ComponentBuilder();
@@ -229,7 +227,7 @@ public class StringUtils {
      * @return BaseComponent
      */
     public static BaseComponent translateColorCodesToTextComponent(String text, Player player){
-        return translateColorCodesToTextComponent(text, player.hasPermission(Permission.OTHER_PLAYER_CHATCOLOR.getValue()));
+        return transColor(text, player.hasPermission(Permission.OTHER_PLAYER_CHATCOLOR.getValue()));
     }
 
     /**
@@ -242,7 +240,7 @@ public class StringUtils {
      * @return BaseComponent
      */
     public static BaseComponent translateColorCodesToTextComponent(String text, Player player, String permission){
-        return translateColorCodesToTextComponent(text, player.hasPermission(permission));
+        return transColor(text, player.hasPermission(permission));
     }
 
     /**
@@ -252,29 +250,7 @@ public class StringUtils {
      * @return BaseComponent
      */
     public static BaseComponent translateColorCodesToTextComponent(String text){
-        return translateColorCodesToTextComponent(text, true);
-    }
-
-    /**
-     * 匹配特定正则表达式, 并返回所匹配到的内容
-     * @param text 源内容
-     * @param regex 表达式
-     * @return 匹配到的内容
-     */
-    public static List<String> matchRegex(String text, String regex){
-        //"#[a-fA-F0-9]{6}"
-        List<String> matched = new ArrayList<>();
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(text);
-
-        while (matcher.find()){
-            String found = regex.substring(matcher.start(), matcher.end());
-            matched.add(found);
-            text = text.replace(found,"");
-            matcher = pattern.matcher(text);
-        }
-
-        return matched;
+        return transColor(text, true);
     }
 
     /**
