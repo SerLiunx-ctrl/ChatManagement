@@ -227,6 +227,8 @@ public class StringUtils {
      * @return BaseComponent
      */
     public static BaseComponent translateColorCodesToTextComponent(String text, Player player){
+        if(text.startsWith("<r>"))
+            return transColor(rainbowColored(text), player.hasPermission(Permission.OTHER_PLAYER_CHATCOLOR.getValue()));
         return transColor(text, player.hasPermission(Permission.OTHER_PLAYER_CHATCOLOR.getValue()));
     }
 
@@ -268,6 +270,37 @@ public class StringUtils {
         return format.replace("{hours}", String.valueOf(hours))
                 .replace("{minutes}", String.format("%.1f",minutes))
                 .replace("{seconds}", String.format("%.1f",seconds));
+    }
+
+    public static String rainbowColored(@NotNull String text) {
+        text = text.replace("<r>","");
+        String[] coloredText = new String[text.length()];
+
+        for(int i = 0; i < text.length(); i++){
+            coloredText[i] = text.substring(i,i+1);
+            coloredText[i] = randomColor() + coloredText[i];
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String s : coloredText) {
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String randomColor(){
+        String red, green, blue;
+        Random random = new Random();
+
+        red = Integer.toHexString(random.nextInt(256)).toUpperCase();
+        green = Integer.toHexString(random.nextInt(256)).toUpperCase();
+        blue = Integer.toHexString(random.nextInt(256)).toUpperCase();
+
+        red = red.length() == 1 ? "0" + red : red;
+        green = green.length() == 1 ? "0" + green : green;
+        blue = blue.length() == 1 ? "0" + blue : blue;
+
+        return  "&#" + red + green + blue;
     }
 
 }
